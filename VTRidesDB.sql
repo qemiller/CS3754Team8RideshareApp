@@ -9,7 +9,7 @@
 Tables to be dropped must be listed in a logical order based on dependency.
 UserQuestionnaire and UserPhoto depend on User. Therefore, they must be dropped before User.
 */
-DROP TABLE IF EXISTS UserQuestionnaire, UserPhoto, User;
+DROP TABLE IF EXISTS UserRides, AllRides, UserPhoto, User;
 
 /* The User table contains attributes of interest of a User. */
 CREATE TABLE User
