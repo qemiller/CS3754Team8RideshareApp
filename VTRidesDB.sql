@@ -50,41 +50,36 @@ CREATE TABLE UserPhoto
 CREATE TABLE AllRides
 (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    driver_id INT NOT NULL,
+        driver_id INT UNSIGNED,
     passanger_1_id INT NOT NULL,
     passanger_2_id INT NOT NULL,
     passanger_3_id INT NOT NULL,
     passanger_4_id INT NOT NULL,
     passanger_5_id INT NOT NULL,
     passanger_6_id INT NOT NULL,
-	seats_available INT NOT NULL,
-	starting_location VARCHAR(128) NOT NULL, 
-	ending_location VARCHAR(128) NOT NULL, 
-	trip_date DATE NOT NULL,
-	number_of_passangers INT NOT NULL,
-	PRIMARY KEY (id)
+    seats_available INT NOT NULL,
+    starting_location VARCHAR(128) NOT NULL, 
+    ending_location VARCHAR(128) NOT NULL, 
+    trip_date DATE NOT NULL,
+    number_of_passangers INT NOT NULL,
+    FOREIGN KEY (driver_id) REFERENCES User(id) ON DELETE CASCADE
 );
 
 CREATE TABLE UserRides
 (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	user_id INT UNSIGNED,
-    driver_username int NOT NULL,
-    passanger_1_id int NOT NULL,
-    passanger_2_id int NOT NULL,
-    passanger_3_id int NOT NULL,
-    passanger_4_id int NOT NULL,
-    passanger_5_id int NOT NULL,
-    passanger_6_id int NOT NULL,
-	seats_available INT NOT NULL,
-	starting_location VARCHAR(128) NOT NULL, 
-	ending_location VARCHAR(128) NOT NULL, 
-	trip_date DATE NOT NULL,
-	number_of_passangers INT NOT NULL,
-	PRIMARY KEY (id)
+    driver_username VARCHAR(32) NOT NULL,
+    passanger_1_id INT NOT NULL,
+    passanger_2_id INT NOT NULL,
+    passanger_3_id INT NOT NULL,
+    passanger_4_id INT NOT NULL,
+    passanger_5_id INT NOT NULL,
+    passanger_6_id INT NOT NULL,
+    seats_available INT NOT NULL,
+    starting_location VARCHAR(128) NOT NULL, 
+    ending_location VARCHAR(128) NOT NULL, 
+    trip_date DATE NOT NULL,
+    number_of_passangers INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
-
-
-
-
-
