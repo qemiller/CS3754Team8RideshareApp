@@ -29,5 +29,5 @@ This file is used to configure a web application (WAR file).
     directory is the folder SurveyUserPhotoStorage in DocRoot. This is where the user photos will
     be stored and accessed
   -->
-  <property name="alternatedocroot_1" value="from=/UserPhotoStorage/* dir=C:/Users/Justin/DocRoot/VTRidesStorage" />
+  <property name="alternatedocroot_1" value="from=/UserPhotoStorage/* dir=C:/Users/Yogi/DocRoot/VTRidesStorage" />
 </glassfish-web-app>
