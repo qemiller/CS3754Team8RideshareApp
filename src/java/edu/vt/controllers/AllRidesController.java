@@ -209,7 +209,7 @@ public class AllRidesController implements Serializable {
         Methods.preserveMessages();
         if (user.isLoggedIn()){
             //System.out.println("share");
-            userRidesController.setSelected(userRidesController.prepareCreate(userRidesController.getItems().size(),
+            userRidesController.setSelected(userRidesController.prepareCreate(selected.getId(),
                     selected.getDriverId().getUsername(),
                     selected.getPassanger1Id(),selected.getPassanger2Id(),selected.getPassanger3Id(), 
                     selected.getPassanger4Id(), selected.getPassanger5Id(), selected.getPassanger6Id(), 
