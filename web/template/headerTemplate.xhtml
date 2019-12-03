@@ -34,9 +34,9 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
 
                         <!-- Use EL to reference the image file since it will be accessed from all UI pages -->
                         <h:link outcome="/index">
-                            <img src="#{resource['images:HealthSurveyLogo.png']}"
-                                 style="width:100%; height:100%; max-height:64px; max-width:215px; border: none"
-                                 alt="Health Survey Logo" />
+                            <img src="#{resource['images:VTLogo.png']}"
+                                 style="width:100%; height:100%; max-height:64px; max-width:64px; border: none"
+                                 alt="VT Logo" />
                         </h:link>
 
                     </td>
@@ -136,12 +136,12 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                                         <c:choose>
                                             <c:when test="#{userController.isLoggedIn() == true}"> 
 
-                                                <h:link outcome="/userSurvey/TakeSurvey" class="standardText" >
-                                                    <i class="fas fa-pencil-alt"></i>&nbsp;Take Survey
+                                                <h:link outcome="/allRides/List" class="standardText" >
+                                                    <i class="fas fa-pencil-alt"></i>&nbsp;All Rides
                                                 </h:link>
 
-                                                <h:link outcome="/userSurvey/SurveysTaken" class="standardText" >
-                                                    <i class="fas fa-check"></i>&nbsp;Surveys Taken
+                                                <h:link outcome="/userRides/List" class="standardText" >
+                                                    <i class="fas fa-check"></i>&nbsp;User Rides
                                                 </h:link>
 
                                                 <!-- Clicking "My Account" displays the Profile.xhtml file -->
@@ -171,18 +171,10 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                                             <c:otherwise>
 
                                                 <c:when test="#{userController.isLoggedIn() == false}">
-                                                    <!-- Clicking "Sign In" displays the SignIn.xhtml file -->
-                                                    <h:link outcome="/SignIn" class="standardText">
-                                                        <i class="fas fa-sign-in-alt"></i>&nbsp;Sign In
-                                                    </h:link>
 
                                                     <!-- Clicking "Create an Account" displays the CreateAccount.xhtml file -->
                                                     <h:link outcome="/userAccount/CreateAccount" class="standardText">
                                                         <i class="fas fa-user-plus"></i>&nbsp;Create an Account
-                                                    </h:link>
-
-                                                    <h:link outcome="/SignIn" class="standardText">
-                                                        <i class="fas fa-pencil-alt"></i>&nbsp;Take Survey
                                                     </h:link>
                                                 </c:when>
 
