@@ -37,7 +37,8 @@ public class UserRidesController implements Serializable {
     private Date trip_date;
     private Integer number_of_passengers;
     @EJB
-    private edu.vt.FacadeBeans.UserRidesFacade ejbFacade;
+    private UserRidesFacade userRidesFacade;
+    
     private List<UserRides> items = null;
     private UserRides selected;
 
@@ -58,12 +59,120 @@ public class UserRidesController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private UserRidesFacade getFacade() {
-        return ejbFacade;
+    private UserRidesFacade getUserRidesFacade() {
+        return userRidesFacade;
     }
 
+    public String getDriver_username() {
+        return driver_username;
+    }
+
+    public void setDriver_username(String driver_username) {
+        this.driver_username = driver_username;
+    }
+
+    public Integer getPassenger_1_id() {
+        return passenger_1_id;
+    }
+
+    public void setPassenger_1_id(Integer passenger_1_id) {
+        this.passenger_1_id = passenger_1_id;
+    }
+
+    public Integer getPassenger_2_id() {
+        return passenger_2_id;
+    }
+
+    public void setPassenger_2_id(Integer passenger_2_id) {
+        this.passenger_2_id = passenger_2_id;
+    }
+
+    public Integer getPassenger_3_id() {
+        return passenger_3_id;
+    }
+
+    public void setPassenger_3_id(Integer passenger_3_id) {
+        this.passenger_3_id = passenger_3_id;
+    }
+
+    public Integer getPassenger_4_id() {
+        return passenger_4_id;
+    }
+
+    public void setPassenger_4_id(Integer passenger_4_id) {
+        this.passenger_4_id = passenger_4_id;
+    }
+
+    public Integer getPassenger_5_id() {
+        return passenger_5_id;
+    }
+
+    public void setPassenger_5_id(Integer passenger_5_id) {
+        this.passenger_5_id = passenger_5_id;
+    }
+
+    public Integer getPassenger_6_id() {
+        return passenger_6_id;
+    }
+
+    public void setPassenger_6_id(Integer passenger_6_id) {
+        this.passenger_6_id = passenger_6_id;
+    }
+
+    public Integer getSeats_available() {
+        return seats_available;
+    }
+
+    public void setSeats_available(Integer seats_available) {
+        this.seats_available = seats_available;
+    }
+
+    public String getStarting_location() {
+        return starting_location;
+    }
+
+    public void setStarting_location(String starting_location) {
+        this.starting_location = starting_location;
+    }
+
+    public String getEnding_location() {
+        return ending_location;
+    }
+
+    public void setEnding_location(String ending_location) {
+        this.ending_location = ending_location;
+    }
+
+    public Date getTrip_date() {
+        return trip_date;
+    }
+
+    public void setTrip_date(Date trip_date) {
+        this.trip_date = trip_date;
+    }
+
+    public Integer getNumber_of_passengers() {
+        return number_of_passengers;
+    }
+
+    public void setNumber_of_passengers(Integer number_of_passengers) {
+        this.number_of_passengers = number_of_passengers;
+    }
+
+    
     public UserRides prepareCreate() {
         selected = new UserRides();
+        initializeEmbeddableKey();
+        return selected;
+    }
+    
+    public UserRides prepareCreate(int id, String driverUsername, int passanger1Id, 
+            int passanger2Id, int passanger3Id, int passanger4Id, int passanger5Id, 
+            int passanger6Id, int seatsAvailable, String startingLocation, 
+            String endingLocation, Date tripDate, int numberOfPassangers){
+        selected = new UserRides(id, driverUsername, passanger1Id, passanger2Id, passanger3Id, 
+                passanger4Id, passanger5Id, passanger6Id, seatsAvailable, 
+                startingLocation, endingLocation, tripDate, numberOfPassangers);
         initializeEmbeddableKey();
         return selected;
     }
@@ -89,7 +198,7 @@ public class UserRidesController implements Serializable {
 
     public List<UserRides> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getUserRidesFacade().findAll();
         }
         return items;
     }
@@ -99,9 +208,9 @@ public class UserRidesController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    getUserRidesFacade().edit(selected);
                 } else {
-                    getFacade().remove(selected);
+                    getUserRidesFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -123,15 +232,15 @@ public class UserRidesController implements Serializable {
     }
 
     public UserRides getUserRides(java.lang.Integer id) {
-        return getFacade().find(id);
+        return getUserRidesFacade().find(id);
     }
 
     public List<UserRides> getItemsAvailableSelectMany() {
-        return getFacade().findAll();
+        return getUserRidesFacade().findAll();
     }
 
     public List<UserRides> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getUserRidesFacade().findAll();
     }
 
     @FacesConverter(forClass = UserRides.class)
