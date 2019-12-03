@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserRidesCreateDlg" widgetVar="UserRidesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUserRidesTitle}">
+            <h:form id="UserRidesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{userRidesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{userRidesController.selected.id}" title="#{bundle.CreateUserRidesTitle_id}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_driverUsername}" for="driverUsername" />
+                        <p:inputText id="driverUsername" value="#{userRidesController.selected.driverUsername}" title="#{bundle.CreateUserRidesTitle_driverUsername}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_driverUsername}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_passanger1Id}" for="passanger1Id" />
+                        <p:inputText id="passanger1Id" value="#{userRidesController.selected.passanger1Id}" title="#{bundle.CreateUserRidesTitle_passanger1Id}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_passanger1Id}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_passanger2Id}" for="passanger2Id" />
+                        <p:inputText id="passanger2Id" value="#{userRidesController.selected.passanger2Id}" title="#{bundle.CreateUserRidesTitle_passanger2Id}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_passanger2Id}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_passanger3Id}" for="passanger3Id" />
+                        <p:inputText id="passanger3Id" value="#{userRidesController.selected.passanger3Id}" title="#{bundle.CreateUserRidesTitle_passanger3Id}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_passanger3Id}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_passanger4Id}" for="passanger4Id" />
+                        <p:inputText id="passanger4Id" value="#{userRidesController.selected.passanger4Id}" title="#{bundle.CreateUserRidesTitle_passanger4Id}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_passanger4Id}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_passanger5Id}" for="passanger5Id" />
+                        <p:inputText id="passanger5Id" value="#{userRidesController.selected.passanger5Id}" title="#{bundle.CreateUserRidesTitle_passanger5Id}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_passanger5Id}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_passanger6Id}" for="passanger6Id" />
+                        <p:inputText id="passanger6Id" value="#{userRidesController.selected.passanger6Id}" title="#{bundle.CreateUserRidesTitle_passanger6Id}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_passanger6Id}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_seatsAvailable}" for="seatsAvailable" />
+                        <p:inputText id="seatsAvailable" value="#{userRidesController.selected.seatsAvailable}" title="#{bundle.CreateUserRidesTitle_seatsAvailable}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_seatsAvailable}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_startingLocation}" for="startingLocation" />
+                        <p:inputText id="startingLocation" value="#{userRidesController.selected.startingLocation}" title="#{bundle.CreateUserRidesTitle_startingLocation}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_startingLocation}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_endingLocation}" for="endingLocation" />
+                        <p:inputText id="endingLocation" value="#{userRidesController.selected.endingLocation}" title="#{bundle.CreateUserRidesTitle_endingLocation}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_endingLocation}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_tripDate}" for="tripDate" />
+                        <p:calendar id="tripDate" pattern="MM/dd/yyyy" value="#{userRidesController.selected.tripDate}" title="#{bundle.EditUserRidesTitle_tripDate}" required="true" requiredMessage="#{bundle.EditUserRidesRequiredMessage_tripDate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_numberOfPassangers}" for="numberOfPassangers" />
+                        <p:inputText id="numberOfPassangers" value="#{userRidesController.selected.numberOfPassangers}" title="#{bundle.CreateUserRidesTitle_numberOfPassangers}" required="true" requiredMessage="#{bundle.CreateUserRidesRequiredMessage_numberOfPassangers}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRidesLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{userRidesController.selected.userId}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{userRidesController.create}" value="#{bundle.Save}" update="display,:UserRidesListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserRidesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UserRidesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

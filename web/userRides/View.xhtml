@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserRidesViewDlg" widgetVar="UserRidesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUserRidesTitle}">
+            <h:form id="UserRidesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{userRidesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_id}"/>
+                        <h:outputText value="#{userRidesController.selected.id}" title="#{bundle.ViewUserRidesTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_driverUsername}"/>
+                        <h:outputText value="#{userRidesController.selected.driverUsername}" title="#{bundle.ViewUserRidesTitle_driverUsername}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger1Id}"/>
+                        <h:outputText value="#{userRidesController.selected.passanger1Id}" title="#{bundle.ViewUserRidesTitle_passanger1Id}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger2Id}"/>
+                        <h:outputText value="#{userRidesController.selected.passanger2Id}" title="#{bundle.ViewUserRidesTitle_passanger2Id}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger3Id}"/>
+                        <h:outputText value="#{userRidesController.selected.passanger3Id}" title="#{bundle.ViewUserRidesTitle_passanger3Id}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger4Id}"/>
+                        <h:outputText value="#{userRidesController.selected.passanger4Id}" title="#{bundle.ViewUserRidesTitle_passanger4Id}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger5Id}"/>
+                        <h:outputText value="#{userRidesController.selected.passanger5Id}" title="#{bundle.ViewUserRidesTitle_passanger5Id}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger6Id}"/>
+                        <h:outputText value="#{userRidesController.selected.passanger6Id}" title="#{bundle.ViewUserRidesTitle_passanger6Id}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_seatsAvailable}"/>
+                        <h:outputText value="#{userRidesController.selected.seatsAvailable}" title="#{bundle.ViewUserRidesTitle_seatsAvailable}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_startingLocation}"/>
+                        <h:outputText value="#{userRidesController.selected.startingLocation}" title="#{bundle.ViewUserRidesTitle_startingLocation}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_endingLocation}"/>
+                        <h:outputText value="#{userRidesController.selected.endingLocation}" title="#{bundle.ViewUserRidesTitle_endingLocation}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_tripDate}"/>
+                        <h:outputText value="#{userRidesController.selected.tripDate}" title="#{bundle.ViewUserRidesTitle_tripDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_numberOfPassangers}"/>
+                        <h:outputText value="#{userRidesController.selected.numberOfPassangers}" title="#{bundle.ViewUserRidesTitle_numberOfPassangers}"/>
+                        <h:outputText value="#{bundle.ViewUserRidesLabel_userId}"/>
+                        <h:outputText value="#{userRidesController.selected.userId}" title="#{bundle.ViewUserRidesTitle_userId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UserRidesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

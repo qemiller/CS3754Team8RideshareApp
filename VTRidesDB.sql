@@ -9,7 +9,7 @@
 Tables to be dropped must be listed in a logical order based on dependency.
 UserQuestionnaire and UserPhoto depend on User. Therefore, they must be dropped before User.
 */
-DROP TABLE IF EXISTS UserRides, AllRides, UserPhoto, User;
+DROP TABLE IF EXISTS DefaultCar,UserRides, AllRides, UserPhoto, User;
 
 /* The User table contains attributes of interest of a User. */
 CREATE TABLE User
@@ -81,5 +81,16 @@ CREATE TABLE UserRides
     ending_location VARCHAR(128) NOT NULL, 
     trip_date DATE NOT NULL,
     number_of_passangers INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+);
+
+CREATE TABLE DefaultCar
+(
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	user_id INT UNSIGNED,
+    make VARCHAR(128) NOT NULL,
+    model VARCHAR(128) NOT NULL, 
+    color VARCHAR(128) NOT NULL, 
+    licensePlate VARCHAR(32) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );

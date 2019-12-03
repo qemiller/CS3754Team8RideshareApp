@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AllRidesViewDlg" widgetVar="AllRidesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAllRidesTitle}">
+            <h:form id="AllRidesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{allRidesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_id}"/>
+                        <h:outputText value="#{allRidesController.selected.id}" title="#{bundle.ViewAllRidesTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger1Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger1Id}" title="#{bundle.ViewAllRidesTitle_passanger1Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger2Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger2Id}" title="#{bundle.ViewAllRidesTitle_passanger2Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger3Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger3Id}" title="#{bundle.ViewAllRidesTitle_passanger3Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger4Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger4Id}" title="#{bundle.ViewAllRidesTitle_passanger4Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger5Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger5Id}" title="#{bundle.ViewAllRidesTitle_passanger5Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger6Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger6Id}" title="#{bundle.ViewAllRidesTitle_passanger6Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_seatsAvailable}"/>
+                        <h:outputText value="#{allRidesController.selected.seatsAvailable}" title="#{bundle.ViewAllRidesTitle_seatsAvailable}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_startingLocation}"/>
+                        <h:outputText value="#{allRidesController.selected.startingLocation}" title="#{bundle.ViewAllRidesTitle_startingLocation}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_endingLocation}"/>
+                        <h:outputText value="#{allRidesController.selected.endingLocation}" title="#{bundle.ViewAllRidesTitle_endingLocation}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_tripDate}"/>
+                        <h:outputText value="#{allRidesController.selected.tripDate}" title="#{bundle.ViewAllRidesTitle_tripDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_numberOfPassangers}"/>
+                        <h:outputText value="#{allRidesController.selected.numberOfPassangers}" title="#{bundle.ViewAllRidesTitle_numberOfPassangers}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_driverId}"/>
+                        <h:outputText value="#{allRidesController.selected.driverId}" title="#{bundle.ViewAllRidesTitle_driverId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AllRidesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
