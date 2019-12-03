@@ -107,8 +107,6 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                             <!--
                             List of U.S. state postal codes is iterated over 
                             to display the list for the user to select one.
-                            The list of states is is held in the Constants.java in the globals package
-                            The list is obtained from the userController's method listOfStates()
                             -->
                             <f:selectItems value="#{userController.listOfStates()}" var="state"
                                            itemLabel="#{state}" itemValue="#{state}" />
@@ -144,8 +142,8 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                         *       SECURITY QUESTION      *
                         ********************************
                         -->
-                        <p:outputLabel value="#{bundle.CreateUserLabel_securityQuestionNumber}" for="securityQuestion" />
-                        <p:selectOneMenu id="securityQuestion"
+                        <p:outputLabel value="Security Question" for="securityQuestion" />
+                        <h:selectOneMenu id="securityQuestion"
                                          value="#{userController.securityQuestionNumber}" required="true" >
                             <!--
                             List of security questions is displayed for the user to select one.
@@ -154,7 +152,7 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                             just holds a question number, which is mapped to the actual question
                             -->
                             <f:selectItems value="#{userController.security_questions}"/>
-                        </p:selectOneMenu>
+                        </h:selectOneMenu>
 
                         <!--
                         ********************************
@@ -189,7 +187,7 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                         *         EMERGENCY CONTACT FIRST NAME        *
                         ********************************
                         -->
-                        <p:outputLabel value="#{bundle.CreateUserLabel_emergencyContactFirstName}" for="emergencyContactFirstName" />
+                        <p:outputLabel value="Emergency Contact First Name" for="emergencyContactFirstName" />
                         <p:inputText id="emergencyContactFirstName" value="#{userController.emergencyContactFirstName}" required="true" class="inputTextField"
                                      requiredMessage="#{bundle.CreateUserRequiredMessage_emergencyContactFirstName}"> 
                         </p:inputText>
@@ -199,7 +197,7 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                         *         EMERGENCY CONTACT LAST NAME        *
                         ********************************
                         -->
-                        <p:outputLabel value="#{bundle.CreateUserLabel_emergencyContactLastName}" for="emergencyContactLastName" />
+                        <p:outputLabel value="Emergency Contact Last Name" for="emergencyContactLastName" />
                         <p:inputText id="emergencyContactLastName" value="#{userController.emergencyContactLastName}" required="true" class="inputTextField"
                                      requiredMessage="#{bundle.CreateUserRequiredMessage_emergencyContactLastName}"> 
                         </p:inputText>
@@ -209,7 +207,7 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                         *         EMERGENCY CONTACT EMAIL ADDRESS        *
                         ********************************
                         -->
-                        <p:outputLabel value="#{bundle.CreateUserLabel_emergencyContactEmail}" for="emergencyContactEmail" />
+                        <p:outputLabel value="Emergency Contact Email Address" for="emergencyContactEmail" />
                         <p:inputText id="emergencyContactEmail" value="#{userController.emergencyContactEmail}" required="true" class="inputTextField"
                                      requiredMessage="#{bundle.CreateUserRequiredMessage_emergencyContactEmail}">
                             <f:validateLength minimum="2" />
@@ -225,7 +223,7 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                         *         EMERGENCY CONTACT PHONE NUMBER        *
                         ********************************
                         -->
-                        <p:outputLabel value="#{bundle.CreateUserLabel_emergencyContactPhoneNumber}" for="emergencyContactPhoneNumber" />
+                        <p:outputLabel value="Emergency Contact Phone Number" for="emergencyContactPhoneNumber" />
                         <p:inputText id="emergencyContactPhoneNumber" value="#{userController.emergencyContactPhoneNumber}" required="true" class="inputTextField"
                                      requiredMessage="#{bundle.CreateUserRequiredMessage_emergencyContactPhoneNumber}">
                             <f:validateLength minimum="9" />
