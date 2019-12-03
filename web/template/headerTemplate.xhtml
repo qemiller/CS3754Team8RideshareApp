@@ -27,16 +27,16 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                 <tr>
                     <!--
                     *****************************************
-                    Column 1 (Left): Health Survey Logo Image
+                    Column 1 (Left): VTRides Logo Image
                     *****************************************
                     -->
                     <td align="left" valign="middle" style="width:215px;">
 
                         <!-- Use EL to reference the image file since it will be accessed from all UI pages -->
                         <h:link outcome="/index">
-                            <img src="#{resource['images:HealthSurveyLogo.png']}"
+                            <img src="#{resource['images:VTLogo.png']}"
                                  style="width:100%; height:100%; max-height:64px; max-width:215px; border: none"
-                                 alt="Health Survey Logo" />
+                                 alt="Virginia  Logo" />
                         </h:link>
 
                     </td>
@@ -50,20 +50,13 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                     -->
                     <td align="center" valign="middle">
                         <c:choose>
-                            <c:when test="#{userController.isAdministrator() == true}"> 
-                                <div class="helloText">Hello, Administrator</div>
+                            <c:when test="#{userController.isLoggedIn() == true}"> 
+                                <div class="helloText">Hello, #{userController.selected.firstName}/</div>
                             </c:when> 
                             <c:otherwise> 
-                                <c:choose>
-                                    <c:when test="#{userController.isLoggedIn() == true}"> 
-                                        <div class="helloText">Hello, #{userController.selected.firstName}</div>
+                                    <c:when test="#{userController.isLoggedIn() == false}"> 
+                                        <div class="helloText">Hello, Guest</div>
                                     </c:when> 
-                                    <c:otherwise>
-                                        <c:when test="#{userController.isLoggedIn() == false}">
-                                            <h1>Hello, Guest</h1>
-                                        </c:when>
-                                    </c:otherwise>
-                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </td>
@@ -83,8 +76,8 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                         <div tabindex="0" class="menu" style="float:right;padding-right:20px;">
                             <div class="menu-dropdown" style="right:0;">
 
-                                <h:link outcome="/index" class="standardText">
-                                    <i class="fas fa-home"></i>&nbsp;Home
+                                <h:link outcome="/SignIn" class="standardText">
+                                        <i class="fas fa-sign-in-alt"></i>&nbsp;Sign In
                                 </h:link>
 
                                 <!-- 
@@ -95,36 +88,6 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                                 see all surveys taken, see all users, see their profile, and sign out
                                 -->
                                 <c:choose>
-                                    <c:when test="#{userController.isAdministrator() == true}"> 
-
-                                        <h:link outcome="/Admin/SurveysReport" class="standardText" >
-                                            <i class="fas fa-file-alt"></i>&nbsp;Generate Report
-                                        </h:link>
-
-                                        <h:link outcome="/Admin/ListAllSurveys" class="standardText" >
-                                            <i class="fas fa-list"></i>&nbsp;List All Surveys
-                                        </h:link>
-
-                                        <h:link outcome="/Admin/ListAllUsers" class="standardText" >
-                                            <i class="fas fa-list"></i>&nbsp;List All Users
-                                        </h:link>
-
-                                        <!-- Clicking "My Account" displays the AdminProfile.xhtml file -->
-                                        <h:link outcome="/Admin/AdminProfile" class="standardText">
-                                            <!-- 
-                                            Display the user's photo in a small circle. The cache="false" option
-                                            enables immediate display of a newly uploaded photo without using cache.
-                                            -->
-                                            <p:graphicImage cache="false" class="smallProfilePhoto" 
-                                                            value="#{userController.userPhoto()}"/>&nbsp;&nbsp;Admin Account
-                                        </h:link>
-
-                                        <!-- Clicking "Sign Out" invokes userController's logout() method -->
-                                        <h:commandLink action="#{userController.logout()}" class="standardText" >
-                                            <i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out
-                                        </h:commandLink>
-
-                                    </c:when> 
                                     <!-- 
                                         ===============================================================
                                         |   Menu Options IF a User is Signed In   |
@@ -132,16 +95,14 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                                         The user should be able to take a survey, see the surveys they have taken, 
                                             see their account profile, and sign out
                                     -->
-                                    <c:otherwise> 
-                                        <c:choose>
                                             <c:when test="#{userController.isLoggedIn() == true}"> 
 
                                                 <h:link outcome="/userSurvey/TakeSurvey" class="standardText" >
-                                                    <i class="fas fa-pencil-alt"></i>&nbsp;Take Survey
+                                                    <i class="fas fa-pencil-alt"></i>&nbsp;All Rides
                                                 </h:link>
 
                                                 <h:link outcome="/userSurvey/SurveysTaken" class="standardText" >
-                                                    <i class="fas fa-check"></i>&nbsp;Surveys Taken
+                                                    <i class="fas fa-check"></i>&nbsp;My Rides
                                                 </h:link>
 
                                                 <!-- Clicking "My Account" displays the Profile.xhtml file -->
@@ -181,15 +142,13 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
                                                         <i class="fas fa-user-plus"></i>&nbsp;Create an Account
                                                     </h:link>
 
-                                                    <h:link outcome="/SignIn" class="standardText">
-                                                        <i class="fas fa-pencil-alt"></i>&nbsp;Take Survey
+                                                    <h:link outcome="/About" class="standardText">
+                                                        <i class="fas fa-info-circle"></i>&nbsp;About
                                                     </h:link>
                                                 </c:when>
 
                                             </c:otherwise>
                                         </c:choose>
-                                    </c:otherwise> 
-                                </c:choose>
 
                             </div>
                         </div>
