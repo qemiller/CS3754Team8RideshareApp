@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Osman Balci on 2018.06.28
+Copyright © 2018 Osman Balci. All rights reserved.
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -6,127 +10,151 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListUserRidesTitle}"></h:outputText>
+            <!-- Set the page title -->
+            <h:outputText value="Rides List"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
-            <h:form id="UserRidesListForm">
-                <p:panel header="#{bundle.ListUserRidesTitle}">
-                    <p:dataTable id="datalist" value="#{userRidesController.items}" var="item"
-                                 selectionMode="single" selection="#{userRidesController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            <div align="center" style="width:97%">
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_driverUsername}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.driverUsername}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_passanger1Id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.passanger1Id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_passanger2Id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.passanger2Id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_passanger3Id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.passanger3Id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_passanger4Id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.passanger4Id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_passanger5Id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.passanger5Id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_passanger6Id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.passanger6Id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_seatsAvailable}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.seatsAvailable}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_startingLocation}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.startingLocation}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_endingLocation}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.endingLocation}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_tripDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tripDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_numberOfPassangers}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numberOfPassangers}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserRidesTitle_userId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userId}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{userRidesController.prepareCreate}" update=":UserRidesCreateForm" oncomplete="PF('UserRidesCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UserRidesViewForm" oncomplete="PF('UserRidesViewDialog').show()" disabled="#{empty userRidesController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UserRidesEditForm" oncomplete="PF('UserRidesEditDialog').show()" disabled="#{empty userRidesController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{userRidesController.destroy}" update=":growl,datalist" disabled="#{empty userRidesController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                <h:form id="UserRidesListForm">
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                    <p:panel header="My Rides">
+
+                        <!-- 
+                        Read about p:dataTable in PrimeFaces User Guide and learn about it.
+                        The table is displayed as sorted in the order of database Primary Key (id) values.
+                        -->
+
+                        <p:dataTable id="datalist" value="#{userRidesController.items}" var="item"
+                                     selectionMode="single" selection="#{userRidesController.selected}"
+                                     reflow="true"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15,20,30,40,50"
+                                     class="dataTable" >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton stockQuoteButton stockChartButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton stockQuoteButton stockChartButton"/>
+
+                            <!-- 
+                            ********************
+                            *   Driver Info   *
+                            ********************
+                            Clicking the column header redisplays the table as sorted w.r.t. company NAME  
+                            in alphabetical order A to Z. Clicking it again reverses the order to Z to A. 
+                            -->
+                            <p:column sortBy="#{item.driverUsername}" headerText="Driver Username" 
+                                       style="width:120px;" >
+                                <h:outputText class="standardText" value="#{item.driverUsername}"/>
+                            </p:column>
+
+                            <!-- 
+                            ********************
+                            *   Seats Available   *
+                            ********************
+                            
+                            -->
+                            <p:column sortBy="#{item.seatsAvailable}" headerText="Logo" style="width:85px;" >
+                                <h:outputText class="standardText" value="#{item.seatsAvailable}"/>
+                            </p:column>
+
+                            <!-- 
+                            ******************************
+                            *   Starting Location   *
+                            ******************************
+                            Clicking the column header redisplays the table as sorted w.r.t. EXCHANGE name
+                            in alphabetical order A to Z. Clicking it again reverses the order to Z to A. 
+                            -->
+                            <p:column sortBy="#{item.startingLocation}" headerText="Starting Location" 
+                                      style="width:60px; text-align:center">
+                                <h:outputText class="standardText" value="#{item.startingLocation}"/>
+                            </p:column>
+
+                            <!-- 
+                            ***********************************
+                            *   Finish Location   *
+                            ***********************************
+                            
+                            -->
+                            <p:column sortBy="#{item.endingLocation}" headerText="Ending Location" 
+                                       style="width:50px; text-align:center" >
+                                <h:outputText class="standardText" value="#{item.endingLocation}"/>
+                            </p:column>
+
+                            <!-- 
+                            ********************************************
+                            *   Date    *
+                            ********************************************
+                          
+                            -->
+                            <p:column sortBy="#{item.tripDate}" headerText="Trip Date"  
+                                      style="width:80px; text-align:center" >
+                                <h:outputText class="standardText" value="#{item.tripDate}"/>         
+                            </p:column>
+
+                            <!-- 
+                            ****************************************
+                            *   FOOTER Section of the Data Table   *
+                            ****************************************
+                            -->
+                            <f:facet name="footer">
+                                <!-- 
+                                =============
+                                CREATE Button
+                                =============
+                                -->
+                                <p:commandButton id="createButton" icon="fas fa-plus" value="#{bundle.Create}" 
+                                                 actionListener="#{userRidesController.prepareCreate()}" 
+                                                 action="/userRides/Create?faces-redirect=true" />
+
+                                <!-- 
+                                ==================
+                                VIEW (Read) Button
+                                ==================
+                                -->
+                                <p:commandButton id="viewButton"   icon="fas fa-eye" value="View" 
+                                                 update="UserRidesViewForm" oncomplete="PF('UserRidesViewDlg').show()" 
+                                                 disabled="#{empty userRidesController.selected}"/>
+                                
+                                <!-- 
+                                ==================
+                                   EDIT Button
+                                ==================
+                                -->
+                                <p:commandButton id="editButton"   icon="fas fa-edit" value="#{bundle.Edit}" 
+                                                 update=":UserRidesEditForm" oncomplete="PF('UserRidesEditDialog').show()" 
+                                                 disabled="#{empty userRidesController.selected}"/>
+
+                
+                            </f:facet>
+                        </p:dataTable>
+                        
+                    </p:panel>
+                </h:form>
+
+                <!-- Clicking the Edit button displays the included Edit.xhtml file in a dialog window on top of this page. -->
+                <ui:include src="/userRides/Edit.xhtml"/>
+
+                <!-- Clicking the View button displays the included View.xhtml file in a dialog window on top of this page. -->
+                <ui:include src="/userRides/View.xhtml"/>
+
+                <!-- Clicking the Search button displays the included Search.xhtml file in a dialog window on top of this page. -->
+                <ui:include src="/userRides/Search.xhtml"/>
+
+
+            </div>
         </ui:define>
+
     </ui:composition>
 
 </html>

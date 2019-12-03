@@ -69,6 +69,7 @@ CREATE TABLE UserRides
 (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	user_id INT UNSIGNED,
+    allRides_id INT NOT NULL,
     driver_username VARCHAR(32) NOT NULL,
     passanger_1_id INT NOT NULL,
     passanger_2_id INT NOT NULL,

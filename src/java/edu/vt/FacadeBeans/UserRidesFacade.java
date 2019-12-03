@@ -47,4 +47,19 @@ public class UserRidesFacade extends AbstractFacade<UserRides> {
 
         return rides;
     }
+    
+    /**
+     *
+     * @param id
+     * @return a list of object references of publicVideos with the input parameter category
+     */
+    public List<UserRides> findByAllRidesId(Integer id) {
+        // the % ____ % means that anything with a categroy containing the substring of categroy 
+        //will be placed in the list of videos
+        List<UserRides> rides = em.createNamedQuery("UserRides.findByAllRidesId")
+                .setParameter("allRidesId", id)
+                .getResultList();
+
+        return rides;
+    }
 }

@@ -24,6 +24,7 @@ import javax.faces.convert.FacesConverter;
 @SessionScoped
 public class UserRidesController implements Serializable {
 
+    private Integer allRidesId;
     private String driver_username;
     private Integer passenger_1_id;
     private Integer passenger_2_id;
@@ -69,6 +70,14 @@ public class UserRidesController implements Serializable {
 
     public void setDriver_username(String driver_username) {
         this.driver_username = driver_username;
+    }
+
+    public Integer getAllRidesId() {
+        return allRidesId;
+    }
+
+    public void setAllRidesId(Integer allRidesId) {
+        this.allRidesId = allRidesId;
     }
 
     public Integer getPassenger_1_id() {
@@ -166,13 +175,14 @@ public class UserRidesController implements Serializable {
         return selected;
     }
     
-    public UserRides prepareCreate(int id, String driverUsername, int passanger1Id, 
+    public UserRides prepareCreate(int allRidesId, String driverUsername, int passanger1Id, 
             int passanger2Id, int passanger3Id, int passanger4Id, int passanger5Id, 
             int passanger6Id, int seatsAvailable, String startingLocation, 
             String endingLocation, Date tripDate, int numberOfPassangers){
-        selected = new UserRides(id, driverUsername, passanger1Id, passanger2Id, passanger3Id, 
-                passanger4Id, passanger5Id, passanger6Id, seatsAvailable, 
-                startingLocation, endingLocation, tripDate, numberOfPassangers);
+        selected = new UserRides();
+        selected.setAll(allRidesId, driverUsername, passanger1Id, passanger2Id, 
+                passanger3Id, passanger4Id, passanger5Id, passanger6Id, 
+                seatsAvailable, startingLocation, endingLocation, tripDate, numberOfPassangers);
         initializeEmbeddableKey();
         return selected;
     }

@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "UserRides.findAll", query = "SELECT u FROM UserRides u")
     , @NamedQuery(name = "UserRides.findById", query = "SELECT u FROM UserRides u WHERE u.id = :id")
+    , @NamedQuery(name = "UserRides.findByAllRidesID", query = "SELECT u FROM UserRides u WHERE u.allRides_id = :allRidesId")
     , @NamedQuery(name = "UserRides.findByDriverUsername", query = "SELECT u FROM UserRides u WHERE u.driverUsername = :driverUsername")
     , @NamedQuery(name = "UserRides.findByPassanger1Id", query = "SELECT u FROM UserRides u WHERE u.passanger1Id = :passanger1Id")
     , @NamedQuery(name = "UserRides.findByPassanger2Id", query = "SELECT u FROM UserRides u WHERE u.passanger2Id = :passanger2Id")
@@ -55,6 +56,10 @@ public class UserRides implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "allRides_id")
+    private int allRides_id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
@@ -118,8 +123,9 @@ public class UserRides implements Serializable {
         this.id = id;
     }
 
-    public UserRides(Integer id, String driverUsername, int passanger1Id, int passanger2Id, int passanger3Id, int passanger4Id, int passanger5Id, int passanger6Id, int seatsAvailable, String startingLocation, String endingLocation, Date tripDate, int numberOfPassangers) {
+    public UserRides(Integer id, Integer allRidesId, String driverUsername, int passanger1Id, int passanger2Id, int passanger3Id, int passanger4Id, int passanger5Id, int passanger6Id, int seatsAvailable, String startingLocation, String endingLocation, Date tripDate, int numberOfPassangers) {
         this.id = id;
+        this.allRides_id = allRidesId;
         this.driverUsername = driverUsername;
         this.passanger1Id = passanger1Id;
         this.passanger2Id = passanger2Id;
@@ -134,6 +140,25 @@ public class UserRides implements Serializable {
         this.numberOfPassangers = numberOfPassangers;
     }
 
+    public void setAll(Integer allRidesId, String driverUsername, 
+            int passanger1Id, int passanger2Id, int passanger3Id, 
+            int passanger4Id, int passanger5Id, int passanger6Id, 
+            int seatsAvailable, String startingLocation, String endingLocation, 
+            Date tripDate, int numberOfPassangers){
+        this.allRides_id = allRidesId;
+        this.driverUsername = driverUsername;
+        this.passanger1Id = passanger1Id;
+        this.passanger2Id = passanger2Id;
+        this.passanger3Id = passanger3Id;
+        this.passanger4Id = passanger4Id;
+        this.passanger5Id = passanger5Id;
+        this.passanger6Id = passanger6Id;
+        this.seatsAvailable = seatsAvailable;
+        this.startingLocation = startingLocation;
+        this.endingLocation = endingLocation;
+        this.tripDate = tripDate;
+        this.numberOfPassangers = numberOfPassangers;
+    }
     public Integer getId() {
         return id;
     }
@@ -142,6 +167,15 @@ public class UserRides implements Serializable {
         this.id = id;
     }
 
+    public int getAllRides_id() {
+        return allRides_id;
+    }
+
+    public void setAllRides_id(int allRides_id) {
+        this.allRides_id = allRides_id;
+    }
+
+    
     public String getDriverUsername() {
         return driverUsername;
     }
