@@ -4,6 +4,7 @@
  */
 package edu.vt.controllers;
 
+import edu.vt.EntityBeans.User;
 import edu.vt.globals.Methods;
 import javax.inject.Named;
 import java.util.Properties;
@@ -49,11 +50,6 @@ public class EmailController {
     Instance Variables (Properties)
     ===============================
      */
-    private String emailTo;             // Contains only one email address to send email to
-    private String emailCc;             // Contains comma separated multiple email addresses with no spaces
-    private String emailSubject;        // Subject line of the email message
-    private String emailBody;           // Email content created in HTML format with PrimeFaces Editor
-
     Properties emailServerProperties;   // java.util.Properties
     Session emailSession;               // javax.mail.Session
     MimeMessage htmlEmailMessage;       // javax.mail.internet.MimeMessage
@@ -74,66 +70,17 @@ public class EmailController {
     class can be accessed in this CDI-managed bean.
     ************************************************************************************************
      */
-    @Inject
-    private EditorController editorController;
-
-    /*
-    =========================
-    Getter and Setter Methods
-    =========================
-     */
-    public EditorController getEditorController() {
-        return editorController;
-    }
-
-    public void setEditorController(EditorController editorController) {
-        this.editorController = editorController;
-    }
-
-    public String getEmailTo() {
-        return emailTo;
-    }
-
-    public void setEmailTo(String emailTo) {
-        this.emailTo = emailTo;
-    }
-
-    public String getEmailCc() {
-        return emailCc;
-    }
-
-    public void setEmailCc(String emailCc) {
-        this.emailCc = emailCc;
-    }
-
-    public String getEmailSubject() {
-        return emailSubject;
-    }
-
-    public void setEmailSubject(String emailSubject) {
-        this.emailSubject = emailSubject;
-    }
-
-    public String getEmailBody() {
-        return emailBody;
-    }
-
-    public void setEmailBody(String emailBody) {
-        this.emailBody = emailBody;
-    }
-
     /*
     ======================================================
     Create Email Sesion and Transport Email in HTML Format
     ======================================================
      */
-    public void sendEmail() throws AddressException, MessagingException {
+    public void sendEmail(User user, String message) throws AddressException, MessagingException {
 
         // Obtain the email message content from the editorController object
-        emailBody = editorController.getEmailMessage();
 
         // Email message content cannot be empty
-        if (emailBody.isEmpty()) {
+        if (message.isEmpty()) {
             Methods.showMessage("Error", "Please enter your email message!", "");
             return;
         }
@@ -155,23 +102,13 @@ public class EmailController {
             htmlEmailMessage = new MimeMessage(emailSession);
 
             // Set the email TO field to emailTo, which can contain only one email address
-            htmlEmailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
-
-            if (emailCc != null && !emailCc.isEmpty()) {
-                /*
-                Using the setRecipients method (as opposed to addRecipient),
-                the CC field is set to contain multiple email addresses
-                separated by comma with no spaces in the emailCc string given.
-                 */
-                htmlEmailMessage.setRecipients(Message.RecipientType.CC, emailCc);
-            }
-            // It is okay for emailCc to be empty or null since the CC is optional
+            htmlEmailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmergencyContactEmail()));
 
             // Set the email subject line
-            htmlEmailMessage.setSubject(emailSubject);
+            htmlEmailMessage.setSubject("VTRides Update");
 
             // Set the email body to the HTML type text
-            htmlEmailMessage.setContent(emailBody, "text/html");
+            htmlEmailMessage.setContent(message, "text/html");
 
             // Create a transport object that implements the Simple Mail Transfer Protocol (SMTP)
             Transport transport = emailSession.getTransport("smtp");
@@ -182,7 +119,7 @@ public class EmailController {
             Cloud.Software.Email@gmail.com account's "Allow less secure apps" option is set to ON.
              */
             transport.connect("smtp.gmail.com", "Cloud.Software.Email@gmail.com", "csd@VT-1872");
-
+            
             // Send the htmlEmailMessage created to the specified list of addresses (recipients)
             transport.sendMessage(htmlEmailMessage, htmlEmailMessage.getAllRecipients());
 
