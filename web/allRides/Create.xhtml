@@ -54,7 +54,7 @@
 
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_trip_cost}" for="trip_cost" />
                             <p:inputText id="trip_cost" value="#{allRidesController.selected.trip_cost}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_trip_cost}"/>
-                            
+
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_tripDate}" for="tripDate" />
                             <p:calendar id="tripDate" pattern="MM/dd/yyyy" value="#{allRidesController.selected.tripDate}" title="#{bundle.EditAllRidesTitle_tripDate}" required="true" requiredMessage="#{bundle.EditAllRidesRequiredMessage_tripDate}" showOn="button"/>
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_numberOfPassangers}" for="numberOfPassangers" />
@@ -68,10 +68,15 @@
                             </h:selectOneRadio>
 
                         </p:panelGrid>
-                        <p:commandButton actionListener="#{allRidesController.create}" value="#{bundle.Save}" 
-                                         update="display,:AllRidesListForm:datalist,:growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
-                                         oncomplete="handleSubmit(args,'AllRidesCreateDialog');"/>
-                        <p:commandButton value="#{bundle.Cancel}" onclick="AllRidesCreateDialog.hide()"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <br />
+                        <div align="center">
+                            <p:commandButton actionListener="#{allRidesController.create}" value="#{bundle.Save}" 
+                                             update="display,:AllRidesListForm:datalist,:growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
+                                             oncomplete="handleSubmit(args,'AllRidesCreateDialog');"/>
+                            <p:commandButton value="#{bundle.Cancel}" onclick="AllRidesCreateDialog.hide()"/>
+                        </div>
                     </h:panelGroup>
                 </h:form>
             </div>
@@ -115,12 +120,12 @@
                                     </c:when>
                                 </c:otherwise>
                             </c:choose>
-                            
-                            
-                            <p:commandButton id="Validate" value="Submit" action="#{allRidesController.validate()}" 
-                                     ajax="false" icon="fas fa-arrow-up" />
-                            <p:commandButton value="Close" onclick="CarRegistrationDialog.hide()"/>
                         </p:panelGrid>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:commandButton id="Validate" value="Submit" action="#{allRidesController.validate()}" 
+                                         ajax="false" icon="fas fa-arrow-up" />
+                        <p:commandButton value="Close" onclick="CarRegistrationDialog.hide()"/>
                     </h:panelGroup>
                 </h:form>>
             </div>
