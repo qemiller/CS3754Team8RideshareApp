@@ -42,8 +42,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "UserRides.findByPassanger5Id", query = "SELECT u FROM UserRides u WHERE u.passanger5Id = :passanger5Id")
     , @NamedQuery(name = "UserRides.findByPassanger6Id", query = "SELECT u FROM UserRides u WHERE u.passanger6Id = :passanger6Id")
     , @NamedQuery(name = "UserRides.findBySeatsAvailable", query = "SELECT u FROM UserRides u WHERE u.seatsAvailable = :seatsAvailable")
-    , @NamedQuery(name = "UserRides.findByStartingLocation", query = "SELECT u FROM UserRides u WHERE u.startingLocation = :startingLocation")
-    , @NamedQuery(name = "UserRides.findByEndingLocation", query = "SELECT u FROM UserRides u WHERE u.endingLocation = :endingLocation")
+    , @NamedQuery(name = "UserRides.findByStartingCity", query = "SELECT u FROM UserRides u WHERE u.startingCity = :startingCity")
+    , @NamedQuery(name = "UserRides.findByStartingState", query = "SELECT u FROM UserRides u WHERE u.startingState = :startingState")
+    , @NamedQuery(name = "UserRides.findByEndingCity", query = "SELECT u FROM UserRides u WHERE u.endingCity = :endingCity")
+    , @NamedQuery(name = "UserRides.findByEndingState", query = "SELECT u FROM UserRides u WHERE u.endingState = :endingState")
     , @NamedQuery(name = "UserRides.findByTripDate", query = "SELECT u FROM UserRides u WHERE u.tripDate = :tripDate")
     , @NamedQuery(name = "UserRides.findByNumberOfPassangers", query = "SELECT u FROM UserRides u WHERE u.numberOfPassangers = :numberOfPassangers")
     , @NamedQuery(name = "UserRides.findByUserPrimaryKey", query = "SELECT u FROM UserRides u WHERE u.userId.id = :primaryKey")
@@ -96,13 +98,61 @@ public class UserRides implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
-    @Column(name = "starting_location")
-    private String startingLocation;
+    @Column(name = "startingAddress1")
+    private String startingAddress1;
+    @Size(max = 128)
+    @Column(name = "startingAddress2")
+    private String startingAddress2;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 64)
+    @Column(name = "startingCity")
+    private String startingCity;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "startingState")
+    private String startingState;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "startingZipcode")
+    private String startingZipcode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
-    @Column(name = "ending_location")
-    private String endingLocation;
+    @Column(name = "endingAddress1")
+    private String endingAddress1;
+    @Size(max = 128)
+    @Column(name = "endingAddress2")
+    private String endingAddress2;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 64)
+    @Column(name = "endingCity")
+    private String endingCity;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "endingState")
+    private String endingState;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "endingZipcode")
+    private String endingZipcode;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "trip_time")
+    private int trip_time;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "trip_distance")
+    private int trip_distance;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "trip_cost")
+    private int trip_cost;
     @Basic(optional = false)
     @NotNull
     @Column(name = "trip_date")
@@ -112,6 +162,30 @@ public class UserRides implements Serializable {
     @NotNull
     @Column(name = "number_of_passangers")
     private int numberOfPassangers;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "carMake")
+    private String carMake;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "carModel")
+    private String carModel;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "carColor")
+    private String carColor;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 32)
+    @Column(name = "carLicensePlate")
+    private String carLicensePlate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "carMpg")
+    private int carMpg;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
@@ -123,7 +197,14 @@ public class UserRides implements Serializable {
         this.id = id;
     }
 
-    public UserRides(Integer id, Integer allRidesId, String driverUsername, int passanger1Id, int passanger2Id, int passanger3Id, int passanger4Id, int passanger5Id, int passanger6Id, int seatsAvailable, String startingLocation, String endingLocation, Date tripDate, int numberOfPassangers) {
+    public UserRides(Integer id, Integer allRidesId, String driverUsername, 
+            int passanger1Id, int passanger2Id, int passanger3Id, int passanger4Id, 
+            int passanger5Id, int passanger6Id, int seatsAvailable, 
+            String startingAddress1, String startingCity, String startingState,
+            String startingZipcode, String endingAddress1, String endingCity,
+            String endingState, String endingZipcode, int trip_time, int trip_distance,
+            int trip_cost, String carMake, String carModel, String carColor, int carMpg,
+            String carLicensePlate, Date tripDate, int numberOfPassangers) {
         this.id = id;
         this.allRides_id = allRidesId;
         this.driverUsername = driverUsername;
@@ -134,8 +215,22 @@ public class UserRides implements Serializable {
         this.passanger5Id = passanger5Id;
         this.passanger6Id = passanger6Id;
         this.seatsAvailable = seatsAvailable;
-        this.startingLocation = startingLocation;
-        this.endingLocation = endingLocation;
+        this.startingAddress1 = startingAddress1;
+        this.startingCity = startingCity;
+        this.startingState = startingState;
+        this.startingZipcode = startingZipcode;
+        this.endingAddress1 = endingAddress1;
+        this.endingCity = endingCity;
+        this.endingState = endingState;
+        this.endingZipcode = endingZipcode;
+        this.trip_time = trip_time;
+        this.trip_distance = trip_distance;
+        this.trip_cost = trip_cost;
+        this.carMake = carMake;
+        this.carModel = carModel;
+        this.carColor = carColor;
+        this.carMpg = carMpg;
+        this.carLicensePlate = carLicensePlate;
         this.tripDate = tripDate;
         this.numberOfPassangers = numberOfPassangers;
     }
@@ -143,7 +238,11 @@ public class UserRides implements Serializable {
     public void setAll(Integer allRidesId, String driverUsername, 
             int passanger1Id, int passanger2Id, int passanger3Id, 
             int passanger4Id, int passanger5Id, int passanger6Id, 
-            int seatsAvailable, String startingLocation, String endingLocation, 
+            int seatsAvailable, String startingAddress1, String startingCity, String startingState,
+            String startingZipcode, String endingAddress1, String endingCity,
+            String endingState, String endingZipcode, int trip_time, int trip_distance,
+            int trip_cost, String carMake, String carModel, String carColor, int carMpg,
+            String carLicensePlate, 
             Date tripDate, int numberOfPassangers){
         this.allRides_id = allRidesId;
         this.driverUsername = driverUsername;
@@ -154,8 +253,22 @@ public class UserRides implements Serializable {
         this.passanger5Id = passanger5Id;
         this.passanger6Id = passanger6Id;
         this.seatsAvailable = seatsAvailable;
-        this.startingLocation = startingLocation;
-        this.endingLocation = endingLocation;
+        this.startingAddress1 = startingAddress1;
+        this.startingCity = startingCity;
+        this.startingState = startingState;
+        this.startingZipcode = startingZipcode;
+        this.endingAddress1 = endingAddress1;
+        this.endingCity = endingCity;
+        this.endingState = endingState;
+        this.endingZipcode = endingZipcode;
+        this.trip_time = trip_time;
+        this.trip_distance = trip_distance;
+        this.trip_cost = trip_cost;
+        this.carMake = carMake;
+        this.carModel = carModel;
+        this.carColor = carColor;
+        this.carMpg = carMpg;
+        this.carLicensePlate = carLicensePlate;
         this.tripDate = tripDate;
         this.numberOfPassangers = numberOfPassangers;
     }
@@ -240,21 +353,151 @@ public class UserRides implements Serializable {
         this.seatsAvailable = seatsAvailable;
     }
 
-    public String getStartingLocation() {
-        return startingLocation;
+    public String getStartingAddress1() {
+        return startingAddress1;
     }
 
-    public void setStartingLocation(String startingLocation) {
-        this.startingLocation = startingLocation;
+    public void setStartingAddress1(String startingAddress1) {
+        this.startingAddress1 = startingAddress1;
     }
 
-    public String getEndingLocation() {
-        return endingLocation;
+    public String getStartingAddress2() {
+        return startingAddress2;
     }
 
-    public void setEndingLocation(String endingLocation) {
-        this.endingLocation = endingLocation;
+    public void setStartingAddress2(String startingAddress2) {
+        this.startingAddress2 = startingAddress2;
     }
+
+    public String getStartingCity() {
+        return startingCity;
+    }
+
+    public void setStartingCity(String startingCity) {
+        this.startingCity = startingCity;
+    }
+
+    public String getStartingState() {
+        return startingState;
+    }
+
+    public void setStartingState(String startingState) {
+        this.startingState = startingState;
+    }
+
+    public String getStartingZipcode() {
+        return startingZipcode;
+    }
+
+    public void setStartingZipcode(String startingZipcode) {
+        this.startingZipcode = startingZipcode;
+    }
+
+    public String getEndingAddress1() {
+        return endingAddress1;
+    }
+
+    public void setEndingAddress1(String endingAddress1) {
+        this.endingAddress1 = endingAddress1;
+    }
+
+    public String getEndingAddress2() {
+        return endingAddress2;
+    }
+
+    public void setEndingAddress2(String endingAddress2) {
+        this.endingAddress2 = endingAddress2;
+    }
+
+    public String getEndingCity() {
+        return endingCity;
+    }
+
+    public void setEndingCity(String endingCity) {
+        this.endingCity = endingCity;
+    }
+
+    public String getEndingState() {
+        return endingState;
+    }
+
+    public void setEndingState(String endingState) {
+        this.endingState = endingState;
+    }
+
+    public String getEndingZipcode() {
+        return endingZipcode;
+    }
+
+    public void setEndingZipcode(String endingZipcode) {
+        this.endingZipcode = endingZipcode;
+    }
+
+    public int getTrip_time() {
+        return trip_time;
+    }
+
+    public void setTrip_time(int trip_time) {
+        this.trip_time = trip_time;
+    }
+
+    public int getTrip_distance() {
+        return trip_distance;
+    }
+
+    public void setTrip_distance(int trip_distance) {
+        this.trip_distance = trip_distance;
+    }
+
+    public int getTrip_cost() {
+        return trip_cost;
+    }
+
+    public void setTrip_cost(int trip_cost) {
+        this.trip_cost = trip_cost;
+    }
+
+    public String getCarMake() {
+        return carMake;
+    }
+
+    public void setCarMake(String carMake) {
+        this.carMake = carMake;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public String getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(String carColor) {
+        this.carColor = carColor;
+    }
+
+    public String getCarLicensePlate() {
+        return carLicensePlate;
+    }
+
+    public void setCarLicensePlate(String carLicensePlate) {
+        this.carLicensePlate = carLicensePlate;
+    }
+
+    public int getCarMpg() {
+        return carMpg;
+    }
+
+    public void setCarMpg(int carMpg) {
+        this.carMpg = carMpg;
+    }
+
+    
 
     public Date getTripDate() {
         return tripDate;

@@ -38,8 +38,21 @@ public class UserRidesController implements Serializable {
     private Integer passenger_5_id;
     private Integer passenger_6_id;
     private Integer seats_available;
-    private String starting_location;
-    private String ending_location;
+    private String startingAddress1; 
+    private String startingCity;
+    private String startingState;
+    private String startingZipcode;
+    private String endingAddress1;
+    private String endingCity;
+    private String endingState;
+    private String endingZipcode;
+    private int trip_time;
+    private int trip_distance;
+    private int trip_cost;
+    private String carMake;
+    private String carModel;
+    private String carColor; 
+    private String carLicensePlate;
     private Date trip_date;
     private Integer number_of_passengers;
     @EJB
@@ -145,21 +158,127 @@ public class UserRidesController implements Serializable {
         this.seats_available = seats_available;
     }
 
-    public String getStarting_location() {
-        return starting_location;
+    public String getStartingAddress1() {
+        return startingAddress1;
     }
 
-    public void setStarting_location(String starting_location) {
-        this.starting_location = starting_location;
+    public void setStartingAddress1(String startingAddress1) {
+        this.startingAddress1 = startingAddress1;
     }
 
-    public String getEnding_location() {
-        return ending_location;
+    public String getStartingCity() {
+        return startingCity;
     }
 
-    public void setEnding_location(String ending_location) {
-        this.ending_location = ending_location;
+    public void setStartingCity(String startingCity) {
+        this.startingCity = startingCity;
     }
+
+    public String getStartingState() {
+        return startingState;
+    }
+
+    public void setStartingState(String startingState) {
+        this.startingState = startingState;
+    }
+
+    public String getStartingZipcode() {
+        return startingZipcode;
+    }
+
+    public void setStartingZipcode(String startingZipcode) {
+        this.startingZipcode = startingZipcode;
+    }
+
+    public String getEndingAddress1() {
+        return endingAddress1;
+    }
+
+    public void setEndingAddress1(String endingAddress1) {
+        this.endingAddress1 = endingAddress1;
+    }
+
+    public String getEndingCity() {
+        return endingCity;
+    }
+
+    public void setEndingCity(String endingCity) {
+        this.endingCity = endingCity;
+    }
+
+    public String getEndingState() {
+        return endingState;
+    }
+
+    public void setEndingState(String endingState) {
+        this.endingState = endingState;
+    }
+
+    public String getEndingZipcode() {
+        return endingZipcode;
+    }
+
+    public void setEndingZipcode(String endingZipcode) {
+        this.endingZipcode = endingZipcode;
+    }
+
+    public int getTrip_time() {
+        return trip_time;
+    }
+
+    public void setTrip_time(int trip_time) {
+        this.trip_time = trip_time;
+    }
+
+    public int getTrip_distance() {
+        return trip_distance;
+    }
+
+    public void setTrip_distance(int trip_distance) {
+        this.trip_distance = trip_distance;
+    }
+
+    public int getTrip_cost() {
+        return trip_cost;
+    }
+
+    public void setTrip_cost(int trip_cost) {
+        this.trip_cost = trip_cost;
+    }
+
+    public String getCarMake() {
+        return carMake;
+    }
+
+    public void setCarMake(String carMake) {
+        this.carMake = carMake;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public String getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(String carColor) {
+        this.carColor = carColor;
+    }
+
+    public String getCarLicensePlate() {
+        return carLicensePlate;
+    }
+
+    public void setCarLicensePlate(String carLicensePlate) {
+        this.carLicensePlate = carLicensePlate;
+    }
+
+    
 
     public Date getTrip_date() {
         return trip_date;
@@ -201,14 +320,22 @@ public class UserRidesController implements Serializable {
         return selected;
     }
     
-    public UserRides prepareCreate(int allRidesId, String driverUsername, int passanger1Id, 
-            int passanger2Id, int passanger3Id, int passanger4Id, int passanger5Id, 
-            int passanger6Id, int seatsAvailable, String startingLocation, 
-            String endingLocation, Date tripDate, int numberOfPassangers){
+    public UserRides prepareCreate(int allRidesId, String driverUsername, 
+            int passanger1Id, int passanger2Id, int passanger3Id, 
+            int passanger4Id, int passanger5Id, int passanger6Id, 
+            int seatsAvailable, String startingAddress1, String startingCity, String startingState,
+            String startingZipcode, String endingAddress1, String endingCity,
+            String endingState, String endingZipcode, int trip_time, int trip_distance,
+            int trip_cost, String carMake, String carModel, String carColor, int carMpg,
+            String carLicensePlate, 
+            Date tripDate, int numberOfPassangers){
         selected = new UserRides();
         selected.setAll(allRidesId, driverUsername, passanger1Id, passanger2Id, 
                 passanger3Id, passanger4Id, passanger5Id, passanger6Id, 
-                seatsAvailable, startingLocation, endingLocation, tripDate, numberOfPassangers);
+                seatsAvailable, startingAddress1, startingCity, startingState,
+                startingZipcode, endingAddress1, endingCity, endingState,
+                endingZipcode, trip_time, trip_distance, trip_cost, carMake, carModel,
+                carColor, carMpg, carLicensePlate, tripDate, numberOfPassangers);
         initializeEmbeddableKey();
         return selected;
     }
@@ -224,8 +351,6 @@ public class UserRidesController implements Serializable {
         if (selected.getDriverUsername().equals(user.getUsername())){
             update();
             AllRides allRide = getAllRidesFacade().find(selected.getAllRides_id());
-            allRide.setEndingLocation(selected.getEndingLocation());
-            allRide.setStartingLocation(selected.getStartingLocation());
             allRide.setNumberOfPassangers(selected.getNumberOfPassangers());
             allRide.setPassanger1Id(selected.getPassanger1Id());
             allRide.setPassanger2Id(selected.getPassanger2Id());
@@ -233,6 +358,22 @@ public class UserRidesController implements Serializable {
             allRide.setPassanger4Id(selected.getPassanger4Id());
             allRide.setPassanger5Id(selected.getPassanger5Id());
             allRide.setPassanger6Id(selected.getPassanger6Id());
+            allRide.setCarColor(selected.getCarColor());
+            allRide.setCarLicensePlate(selected.getCarLicensePlate());
+            allRide.setCarMake(selected.getCarMake());
+            allRide.setCarModel(selected.getCarModel());
+            allRide.setCarMpg(selected.getCarMpg());
+            allRide.setEndingAddress1(selected.getEndingAddress1());
+            allRide.setEndingCity(selected.getEndingCity());
+            allRide.setEndingState(selected.getEndingState());
+            allRide.setEndingZipcode(selected.getEndingZipcode());
+            allRide.setStartingAddress1(selected.getStartingAddress1());
+            allRide.setStartingCity(selected.getStartingCity());
+            allRide.setStartingState(selected.getStartingState());
+            allRide.setStartingZipcode(selected.getStartingZipcode());
+            allRide.setTrip_cost(selected.getTrip_cost());
+            allRide.setTrip_distance(selected.getTrip_distance());
+            allRide.setTrip_time(selected.getTrip_time());
             allRide.setTripDate(selected.getTripDate());
             allRide.setSeatsAvailable(selected.getSeatsAvailable());
         }
@@ -258,7 +399,6 @@ public class UserRidesController implements Serializable {
         // send a message to the riders
         if (selected.getDriverUsername().equals(user.getUsername())){
             allRidesController.destroy();
-            destroy();
             // send message
         }
         // if the user is a passenger, set the passengerId of the allRides to -1
@@ -290,6 +430,7 @@ public class UserRidesController implements Serializable {
             }
             allRide.setNumberOfPassangers(allRide.getNumberOfPassangers() - 1);
             allRide.setSeatsAvailable(allRide.getSeatsAvailable() + 1);
+            destroy();
         }
     }
     public void destroy() {
