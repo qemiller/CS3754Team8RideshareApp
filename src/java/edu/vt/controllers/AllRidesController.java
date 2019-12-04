@@ -518,7 +518,6 @@ public class AllRidesController implements Serializable {
     public AllRides prepareCreate() throws Exception {
         selected = new AllRides();
         initializeEmbeddableKey();
-        getTripInfo();
         return selected;
     }
     
@@ -556,7 +555,8 @@ public class AllRidesController implements Serializable {
         return "/search/Results?faces-redirect=true";
     }
 
-    public void create() {
+    public void create() throws Exception {
+        getTripInfo();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AllRidesCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

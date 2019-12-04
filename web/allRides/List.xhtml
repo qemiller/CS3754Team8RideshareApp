@@ -115,7 +115,7 @@ Copyright © 2018 Osman Balci. All rights reserved.
                                 -->
                                 <p:commandButton id="createButton" icon="fas fa-plus" value="#{bundle.Create}" 
                                                  actionListener="#{allRidesController.prepareCreate()}" 
-                                                 action="/allRides/Create?faces-redirect=true" />
+                                                 update=":AllRidesCreateForm" oncomplete="PF('AllRidesCreateDialog').show()"/>
 
                                 <!-- 
                                 ==================
@@ -124,7 +124,7 @@ Copyright © 2018 Osman Balci. All rights reserved.
                                 -->
                                 <p:commandButton id="viewButton"   icon="fas fa-eye" value="View" 
                                                  update="AllRidesViewForm" oncomplete="PF('AllRidesViewDlg').show()" 
-                                                 disabled="#{empty allRidesControlelr.selected}"/>
+                                                 disabled="#{empty allRidesController.selected}"/>
 
                                 <!-- 
                                 ====================

@@ -7,9 +7,10 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:composition template="/template/siteTemplate.xhtml">
+    <ui:composition>
 
-        <p:dialog id="AllRidesCreateDlg" widgetVar="AllRidesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}">
+        <p:dialog id="AllRidesCreateDlg" widgetVar="AllRidesCreateDialog" modal="true" resizable="false" 
+                  appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}" style="overflow:scroll; max-height: 100%">
             <div align="center">
                 <h:form id="AllRidesCreateForm" class="ui-datatable-data">
                     <h:panelGroup id="display">
