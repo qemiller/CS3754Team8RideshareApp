@@ -56,6 +56,7 @@ public class AllRidesController implements Serializable {
     private String carLicensePlate;
     private Date trip_date;
     private Integer number_of_passengers;
+    private boolean useDefaultCar;
     
     private List<AllRides> searchedItems;
     private String searchCategory;
@@ -317,6 +318,15 @@ public class AllRidesController implements Serializable {
         this.searchString = searchString;
     }
 
+    public boolean isUseDefaultCar() {
+        return useDefaultCar;
+    }
+
+    public void setUseDefaultCar(boolean useDefaultCar) {
+        this.useDefaultCar = useDefaultCar;
+    }
+
+    
     
     public AllRidesFacade getEjbFacade() {
         return ejbFacade;
