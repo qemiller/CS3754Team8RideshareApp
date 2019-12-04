@@ -40,7 +40,7 @@ public final class Constants {
     - Balci
     dir=/home/cloudsd/Kennedy/DocRoot
      */
-    public static final String PHOTOS_ABSOLUTE_PATH = "C:/Users/Justin/DocRoot/VTRidesStorage/UserPhotoStorage";
+    public static final String PHOTOS_ABSOLUTE_PATH = "C:/Users/Yogi/DocRoot/VTRidesStorage/";
 
     /*
     In glassfish-web.xml, we specified an alternate document root (DocRoot) with the statement below
@@ -90,8 +90,8 @@ public final class Constants {
         <> the URI of the Web Pages folder of the application if an internal file is referenced.
     - Balci
      */
-    public static final String PHOTOS_RELATIVE_PATH = "/UserPhotoStorage/";
-    public static final String DEFAULT_PHOTO_RELATIVE_PATH = "/UserPhotoStorage/defaultUserPhoto.png";
+    public static final String PHOTOS_RELATIVE_PATH = "/VTRidesStorage/";
+    public static final String DEFAULT_PHOTO_RELATIVE_PATH = "/VTRidesStorage/defaultUserPhoto.png";
 
     /* 
     ==================================================

@@ -59,7 +59,7 @@ public class UserController implements Serializable {
     private String emergencyContactLastName;
     private String emergencyContactEmail;
     private String emergencyContactPhoneNumber;
-    
+    private String emergencyContactPhoneCarrier;
     
     @EJB
     private UserFacade userFacade;
@@ -242,6 +242,14 @@ public class UserController implements Serializable {
         this.emergencyContactPhoneNumber = emergencyContactPhoneNumber;
     }
 
+    public String getEmergencyContactPhoneCarrier() {
+        return emergencyContactPhoneCarrier;
+    }
+
+    public void setEmergencyContactPhoneCarrier(String emergencyContactPhoneCarrier) {
+        this.emergencyContactPhoneCarrier = emergencyContactPhoneCarrier;
+    }
+
     public UserFacade getUserFacade() {
         return userFacade;
     }
@@ -381,6 +389,11 @@ public class UserController implements Serializable {
             newUser.setSecurityQuestionNumber(securityQuestionNumber);
             newUser.setSecurityAnswer(answerToSecurityQuestion);
             newUser.setEmail(email);
+            newUser.setEmergencyContactEmail(emergencyContactEmail);
+            newUser.setEmergencyContactFirstName(emergencyContactFirstName);
+            newUser.setEmergencyContactLastName(emergencyContactLastName);
+            newUser.setEmergencyContactPhoneNumber(emergencyContactPhoneNumber);
+            newUser.setEmergencyContactPhoneCarrier(emergencyContactPhoneCarrier);
             newUser.setUsername(username);
 
             //-------------------------------------------------------------------------------------
@@ -407,7 +420,7 @@ public class UserController implements Serializable {
          The Profile page cannot be shown since the new User has not signed in yet.
          Therefore, we show the Sign In page for the new User to sign in first.
          */
-        return "/SignIn.xhtml?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     /*

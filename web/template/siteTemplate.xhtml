@@ -21,7 +21,7 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
         (c) displays a title for the page in search-engine results.
         -->
         <title>
-            <ui:insert name="title">Health Survey</ui:insert>
+            <ui:insert name="title">VT Rides</ui:insert>
         </title>
 
         <!-- 
@@ -50,15 +50,6 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
         -->
         <h:outputStylesheet library="css" name="siteStyles.css" />
 
-        <!-- 
-        ===============================
-        *   JavaScript Image Slider   *
-        ===============================
-        The following CSS and JavaScript files are required for the JavaScript Image Slider
-        downloaded from http://www.menucool.com/javascript-image-slider to work.
-        -->
-        <h:outputStylesheet library="css" name="js-image-slider.css" />
-        <h:outputScript name="js/js-image-slider.js" />
 
         <!-- 
         ======================================== 
@@ -85,7 +76,7 @@ Copyright © 2019 Justin Kennedy. All rights reserved.
         Use EL to get the image file since it will be referenced by all UI pages.
         - Balci
         -->
-        <link rel="shortcut icon" href="#{resource['images:favicon.ico']}" type="image/x-icon" />
+        <link rel="shortcut icon" href="#{resources['images:favicon.ico']}" type="image/x-icon" />
 
     </h:head>
 

@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import java.lang.Integer;
 
 @FacesValidator("phoneNumberValidator")
 
@@ -24,13 +25,13 @@ public class PhoneNumberValidator implements Validator{
                     "Invalid Phone Number!",
                     "Phone Number is not long enough! Number must be 10 digits!"));
         }
-        // Validate each email address in the list
-        try {
-            Integer.parseInt(number);
-        } catch (NumberFormatException e) {
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_FATAL,
+        
+        if (!number.matches("[0-9]+")){
+               throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_FATAL,
                     "Unrecognized Phone Number!",
                     "Please enter only numbers and no spaces!"));
         }
+       
+         
     }
 }
