@@ -5,8 +5,11 @@ import edu.vt.controllers.util.JsfUtil;
 import edu.vt.controllers.util.JsfUtil.PersistAction;
 import edu.vt.FacadeBeans.AllRidesFacade;
 import edu.vt.globals.Methods;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,6 +24,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import org.primefaces.json.JSONArray;
+import org.primefaces.json.JSONObject;
 
 @Named("allRidesController")
 @SessionScoped
@@ -34,8 +39,21 @@ public class AllRidesController implements Serializable {
     private Integer passenger_5_id;
     private Integer passenger_6_id;
     private Integer seats_available;
-    private String starting_location;
-    private String ending_location;
+    private String startingAddress1; 
+    private String startingCity;
+    private String startingState;
+    private String startingZipcode;
+    private String endingAddress1;
+    private String endingCity;
+    private String endingState;
+    private String endingZipcode;
+    private int trip_time;
+    private int trip_distance;
+    private int trip_cost;
+    private String carMake;
+    private String carModel;
+    private String carColor; 
+    private String carLicensePlate;
     private Date trip_date;
     private Integer number_of_passengers;
     
@@ -43,6 +61,8 @@ public class AllRidesController implements Serializable {
     private String searchCategory;
     private String searchString;
     
+    private final String key = "AIzaSyB12-poUJmOudwUfRF0Y4Rwjg4Rfx2R86c";
+    private final String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=";
     
     @EJB
     private edu.vt.FacadeBeans.AllRidesFacade ejbFacade;
@@ -121,20 +141,140 @@ public class AllRidesController implements Serializable {
         this.seats_available = seats_available;
     }
 
-    public String getStarting_location() {
-        return starting_location;
+    public String getStartingAddress1() {
+        return startingAddress1;
     }
 
-    public void setStarting_location(String starting_location) {
-        this.starting_location = starting_location;
+    public void setStartingAddress1(String startingAddress1) {
+        this.startingAddress1 = startingAddress1;
     }
 
-    public String getEnding_location() {
-        return ending_location;
+    public String getStartingCity() {
+        return startingCity;
     }
 
-    public void setEnding_location(String ending_location) {
-        this.ending_location = ending_location;
+    public void setStartingCity(String startingCity) {
+        this.startingCity = startingCity;
+    }
+
+    public String getStartingState() {
+        return startingState;
+    }
+
+    public void setStartingState(String startingState) {
+        this.startingState = startingState;
+    }
+
+    public String getStartingZipcode() {
+        return startingZipcode;
+    }
+
+    public void setStartingZipcode(String startingZipcode) {
+        this.startingZipcode = startingZipcode;
+    }
+
+    public String getEndingAddress1() {
+        return endingAddress1;
+    }
+
+    public void setEndingAddress1(String endingAddress1) {
+        this.endingAddress1 = endingAddress1;
+    }
+
+    public String getEndingCity() {
+        return endingCity;
+    }
+
+    public void setEndingCity(String endingCity) {
+        this.endingCity = endingCity;
+    }
+
+    public String getEndingState() {
+        return endingState;
+    }
+
+    public void setEndingState(String endingState) {
+        this.endingState = endingState;
+    }
+
+    public String getEndingZipcode() {
+        return endingZipcode;
+    }
+
+    public void setEndingZipcode(String endingZipcode) {
+        this.endingZipcode = endingZipcode;
+    }
+
+    public int getTrip_time() {
+        return trip_time;
+    }
+
+    public void setTrip_time(int trip_time) {
+        this.trip_time = trip_time;
+    }
+
+    public int getTrip_distance() {
+        return trip_distance;
+    }
+
+    public void setTrip_distance(int trip_distance) {
+        this.trip_distance = trip_distance;
+    }
+
+    public int getTrip_cost() {
+        return trip_cost;
+    }
+
+    public void setTrip_cost(int trip_cost) {
+        this.trip_cost = trip_cost;
+    }
+
+    public String getCarMake() {
+        return carMake;
+    }
+
+    public void setCarMake(String carMake) {
+        this.carMake = carMake;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public String getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(String carColor) {
+        this.carColor = carColor;
+    }
+
+    public String getCarLicensePlate() {
+        return carLicensePlate;
+    }
+
+    public void setCarLicensePlate(String carLicensePlate) {
+        this.carLicensePlate = carLicensePlate;
+    }
+
+    public UserController getUser() {
+        return user;
+    }
+
+    public void setUser(UserController user) {
+        this.user = user;
+    }
+
+    public UserRidesController getUserRidesController() {
+        return userRidesController;
+    }
+
+    public void setUserRidesController(UserRidesController userRidesController) {
+        this.userRidesController = userRidesController;
     }
 
     public Date getTrip_date() {
@@ -214,7 +354,11 @@ public class AllRidesController implements Serializable {
                     selected.getPassanger1Id(),selected.getPassanger2Id(),selected.getPassanger3Id(), 
                     selected.getPassanger4Id(), selected.getPassanger5Id(), selected.getPassanger6Id(), 
                     selected.getSeatsAvailable(),
-                    selected.getStartingLocation(), selected.getEndingLocation(), selected.getTripDate(),
+                    selected.getStartingAddress1(), selected.getStartingCity(), selected.getStartingState(),
+            selected.getStartingZipcode(), selected.getEndingAddress1(), selected.getEndingCity(),
+            selected.getEndingState(), selected.getEndingZipcode(), selected.getTrip_time(), selected.getTrip_distance(),
+            selected.getTrip_cost(), selected.getCarMake(), selected.getCarModel(), selected.getCarColor(), selected.getCarMpg(),
+            selected.getCarLicensePlate(), selected.getTripDate(),
                     selected.getNumberOfPassangers()));
             userRidesController.create();
         }
@@ -222,19 +366,134 @@ public class AllRidesController implements Serializable {
             Methods.showMessage("Information", "Unable to Share!", "To share a video, a user must have signed in!");
         }
     }
-    public AllRides prepareCreate() {
+    
+    public void getTripInfo() throws Exception{
+        Methods.preserveMessages();
+        String start;
+        String end;
+        if(!selected.getStartingAddress2().isEmpty()){
+            start = selected.getStartingAddress1().replace(" ", "+") + "+" +
+                    selected.getStartingAddress2().replace(" ", "+") + "+" +
+                    selected.getStartingCity().replace(" ", "+") + "+" +
+                    selected.getStartingState();
+        }
+        else {
+            start = selected.getStartingAddress1().replace(" ", "+") + "+" +
+                    selected.getStartingCity().replace(" ", "+") + "+" +
+                    selected.getStartingState();
+        }
+        
+        if(!selected.getEndingAddress2().isEmpty()){
+            end = selected.getEndingAddress1().replace(" ", "+") + "+" +
+                    selected.getEndingAddress2().replace(" ", "+") + "+" +
+                    selected.getEndingCity().replace(" ", "+") + "+" +
+                    selected.getEndingState();
+        }
+        else {
+            end = selected.getEndingAddress1().replace(" ", "+") + "+" +
+                    selected.getEndingCity().replace(" ", "+") + "+" +
+                    selected.getEndingState();
+        }
+        try{
+            String totalUrl = url+start+"&destinations="+end+"&key="+key;
+            String urlResultsJsonData = readUrlContent(totalUrl);
+            JSONObject resultsJsonObject = new JSONObject(urlResultsJsonData);
+            JSONArray jsonArrayFoundObjects = resultsJsonObject.getJSONArray("rows");
+            JSONArray elements = jsonArrayFoundObjects.optJSONArray(0);
+            JSONObject duration = elements.optJSONObject(1);
+            int seconds = duration.optInt("value");
+            JSONObject distance = elements.optJSONObject(2);
+            int feet = distance.optInt("value");
+            double minutes = (double)seconds/60;
+            selected.setTrip_time((int)minutes);
+            double miles = (double)feet/5280;
+            selected.setTrip_distance((int)miles);
+        }catch(Exception ex){
+            Methods.showMessage("Fatal Error", "The Google Maps Database was not accessed correctly.", "See: " + ex.getMessage());
+        }
+        
+    }
+    
+        /**
+     * Return the content of a given URL as String
+     *
+     * @param webServiceURL to retrieve the JSON data from
+     * @return JSON data from the given URL as String
+     * @throws Exception
+     */
+    public String readUrlContent(String webServiceURL) throws Exception {
+        /*
+        reader is an object reference pointing to an object instantiated from the BufferedReader class.
+        Currently, it is "null" pointing to nothing.
+         */
+        BufferedReader reader = null;
+
+        try {
+            // Create a URL object from the webServiceURL given
+            URL url = new URL(webServiceURL);
+            /*
+            The BufferedReader class reads text from a character-input stream, buffering characters
+            so as to provide for the efficient reading of characters, arrays, and lines.
+             */
+            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            // Create a mutable sequence of characters and store its object reference into buffer
+            StringBuilder buffer = new StringBuilder();
+
+            // Create an array of characters of size 10240
+            char[] chars = new char[10240];
+
+            int numberOfCharactersRead;
+            /*
+            The read(chars) method of the reader object instantiated from the BufferedReader class
+            reads 10240 characters as defined by "chars" into a portion of a buffered array.
+
+            The read(chars) method attempts to read as many characters as possible by repeatedly
+            invoking the read method of the underlying stream. This iterated read continues until
+            one of the following conditions becomes true:
+
+                (1) The specified number of characters have been read, thus returning the number of characters read.
+                (2) The read method of the underlying stream returns -1, indicating end-of-file, or
+                (3) The ready method of the underlying stream returns false, indicating that further input requests would block.
+
+            If the first read on the underlying stream returns -1 to indicate end-of-file then the read(chars) method returns -1.
+            Otherwise the read(chars) method returns the number of characters actually read.
+            -Balci
+             */
+            while ((numberOfCharactersRead = reader.read(chars)) != -1) {
+                buffer.append(chars, 0, numberOfCharactersRead);
+            }
+
+            // Return the String representation of the created buffer
+            return buffer.toString();
+
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+        }
+    }
+    public AllRides prepareCreate() throws Exception {
         selected = new AllRides();
         initializeEmbeddableKey();
+        getTripInfo();
         return selected;
     }
     
     public AllRides prepareCreate(Integer id, int passanger1Id, int passanger2Id, 
             int passanger3Id, int passanger4Id, int passanger5Id, int passanger6Id, 
-            int seatsAvailable, String startingLocation, String endingLocation, 
+            int seatsAvailable, String startingAddress1, String startingCity, String startingState,
+            String startingZipcode, String endingAddress1, String endingCity,
+            String endingState, String endingZipcode, int trip_time, int trip_distance,
+            int trip_cost, String carMake, String carModel, String carColor, int carMpg,
+            String carLicensePlate,  
             Date tripDate, int numberOfPassangers){
         selected = new AllRides(id, passanger1Id, passanger2Id, passanger3Id, 
                 passanger4Id, passanger5Id, passanger6Id, seatsAvailable, 
-                startingLocation, endingLocation, tripDate, numberOfPassangers);
+                startingAddress1, startingCity, startingState, startingZipcode, 
+                endingAddress1, endingCity, endingState, endingZipcode,
+                trip_time, trip_distance, trip_cost, carMake, carModel, carColor, 
+                carMpg, carLicensePlate, tripDate, numberOfPassangers);
         initializeEmbeddableKey();
         return selected;
     }
