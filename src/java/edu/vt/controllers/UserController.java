@@ -284,6 +284,10 @@ public class UserController implements Serializable {
     public void setSelected(User selected) {
         this.selected = selected;
     }
+    
+    public DefaultCar getUserDefaultCar(){
+        return getDefaultCarFacade().findByUserPrimaryKey(this.selected.getId()).get(0);
+    }
 
     protected void setEmbeddableKeys() {
     }

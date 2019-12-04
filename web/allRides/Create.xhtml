@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition>
 
@@ -13,7 +14,7 @@
                 <h:form id="AllRidesCreateForm" class="ui-datatable-data">
                     <h:panelGroup id="display">
                         <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2" rendered="#{allRidesController.selected != null}">
-                            
+
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger1Id}" for="passanger1Id" />
                             <p:inputText id="passanger1Id" value="#{allRidesController.selected.passanger1Id}" class="inputTextField" required="true" requiredMessage="#{bundle.CreateUserVideoRequiredMessage_title}"/>
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger2Id}" for="passanger2Id" />
@@ -49,15 +50,19 @@
                             <p:inputText id="endingState" value="#{allRidesController.selected.endingState}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_endingState}"/>
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_endingZipcode}" for="endingZipcode" />
                             <p:inputText id="endingZipcode" value="#{allRidesController.selected.endingZipcode}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_endingZipcode}"/>
-                            
+
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_tripDate}" for="tripDate" />
                             <p:calendar id="tripDate" pattern="MM/dd/yyyy" value="#{allRidesController.selected.tripDate}" title="#{bundle.EditAllRidesTitle_tripDate}" required="true" requiredMessage="#{bundle.EditAllRidesRequiredMessage_tripDate}" showOn="button"/>
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_numberOfPassangers}" for="numberOfPassangers" />
                             <p:inputText id="numberOfPassangers" value="#{allRidesController.selected.numberOfPassangers}" title="#{bundle.CreateAllRidesTitle_numberOfPassangers}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_numberOfPassangers}"/>
-                            
-                            <p:outputLabel value="Do you want to register a car other than your default car?" for="carRegistration" />
-                            <h:selectBooleanCheckbox id="carRegistration" value="#{allRidesController.useDefaultCar}" onclick="CarRegistrationDialog.show()" />
-                               
+
+                            <p:outputLabel value="Register a Car?" for="carRegistration" />
+                            <h:selectOneRadio id="carRegistration" value="#{allRidesController.useDefaultCar}" onclick="CarRegistrationDialog.show()" 
+                                              required="true" requiredMessage="A car must be registered">
+                                <f:selectItem itemLabel="Use Default Car" value="1" />
+                                <f:selectItem itemLabel="Use Another Car" value="0" />
+                            </h:selectOneRadio>
+
                         </p:panelGrid>
                         <p:commandButton actionListener="#{allRidesController.create}" value="#{bundle.Save}" update="display,:AllRidesListForm:datalist,:growl" oncomplete="handleSubmit(args,'AllRidesCreateDialog');"/>
                         <p:commandButton value="#{bundle.Cancel}" onclick="AllRidesCreateDialog.hide()"/>
@@ -65,24 +70,50 @@
                 </h:form>
             </div>
         </p:dialog>
-        
+
         <p:dialog id="CarRegistrationDlg" widgetVar="CarRegistrationDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}">
             <div align="center">
                 <h:form id="CarRegistrationForm" class="ui-datatable-data">
                     <h:panelGroup id="display2">
                         <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2" rendered="#{allRidesController.selected != null}">
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_carMake}" for="carMake" />
-                            <p:inputText id="carMake" value="#{allRidesController.selected.carMake}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carMake}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_carModel}" for="carModel" />
-                            <p:inputText id="carModel" value="#{allRidesController.selected.carModel}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carModel}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_carColor}" for="carColor" />
-                            <p:inputText id="carColor" value="#{allRidesController.selected.carColor}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carColor}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_carLicensePlate}" for="carLicensePlate" />
-                            <p:inputText id="carLicensePlate" value="#{allRidesController.selected.carLicensePlate}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carLicensePlate}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_carMpg}" for="carMpg" />
-                            <p:inputText id="carMpg" value="#{allRidesController.selected.carMpg}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carMpg}"/>
-                            <p:commandButton actionListener="#{allRidesController.validateCar()}" value="Validate" onclick="CarRegistrationDialog.hide()"/>
-                            <p:commandButton value="#{bundle.Cancel}" onclick="CarRegistrationDialog.hide()"/>
+                            <c:choose>
+                                <c:when test="#{allRidesController.useDefaultCar == 1}">
+                                    <p:outputLabel value="#{bundle.CreateAllRidesLabel_carMake}" for="carMake" />
+                                    <p:outputLabel value="#{allRidesController.user.userDefaultCar.make}" for="carMake" />
+
+                                    <p:outputLabel value="#{bundle.CreateAllRidesLabel_carModel}" for="carModel" />
+                                    <p:outputLabel value="#{allRidesController.user.userDefaultCar.model}" for="carModel" />
+
+                                    <p:outputLabel value="#{bundle.CreateAllRidesLabel_carColor}" for="carColor" />
+                                    <p:outputLabel value="#{allRidesController.user.userDefaultCar.color}" for="carColor" />
+
+                                    <p:outputLabel value="#{bundle.CreateAllRidesLabel_carLicensePlate}" for="carLicensePlate" />
+                                    <p:outputLabel value="#{allRidesController.user.userDefaultCar.licensePlate}" for="carLicensePlate" />
+
+                                    <p:outputLabel value="#{bundle.CreateAllRidesLabel_carMake}" for="carMpg" />
+                                    <p:outputLabel value="#{allRidesController.user.userDefaultCar.mpg}" for="carMpg" />
+                                </c:when>
+                                <c:otherwise>
+                                    <c:when test="#{allRidesController.useDefaultCar == 0}">
+
+                                        <p:outputLabel value="#{bundle.CreateAllRidesLabel_carMake}" for="carMake" />
+                                        <p:inputText id="carMake" value="#{allRidesController.selected.carMake}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carMake}"/>
+                                        <p:outputLabel value="#{bundle.CreateAllRidesLabel_carModel}" for="carModel" />
+                                        <p:inputText id="carModel" value="#{allRidesController.selected.carModel}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carModel}"/>
+                                        <p:outputLabel value="#{bundle.CreateAllRidesLabel_carColor}" for="carColor" />
+                                        <p:inputText id="carColor" value="#{allRidesController.selected.carColor}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carColor}"/>
+                                        <p:outputLabel value="#{bundle.CreateAllRidesLabel_carLicensePlate}" for="carLicensePlate" />
+                                        <p:inputText id="carLicensePlate" value="#{allRidesController.selected.carLicensePlate}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carLicensePlate}"/>
+                                        <p:outputLabel value="#{bundle.CreateAllRidesLabel_carMpg}" for="carMpg" />
+                                        <p:inputText id="carMpg" value="#{allRidesController.selected.carMpg}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_carMpg}"/>
+                                    </c:when>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                            
+                            <p:commandButton id="Validate" value="Submit" action="#{allRidesController.validate()}" 
+                                     ajax="false" icon="fas fa-arrow-up" />
+                            <p:commandButton value="Close" onclick="CarRegistrationDialog.hide()"/>
                         </p:panelGrid>
                     </h:panelGroup>
                 </h:form>>

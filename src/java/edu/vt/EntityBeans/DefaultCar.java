@@ -65,6 +65,10 @@ public class DefaultCar implements Serializable {
     @Size(min = 1, max = 32)
     @Column(name = "licensePlate")
     private String licensePlate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "mpg")
+    private int mpg;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
@@ -76,12 +80,13 @@ public class DefaultCar implements Serializable {
         this.id = id;
     }
 
-    public DefaultCar(Integer id, String make, String model, String color, String licensePlate) {
+    public DefaultCar(Integer id, String make, String model, String color, String licensePlate, Integer mpg) {
         this.id = id;
         this.make = make;
         this.model = model;
         this.color = color;
         this.licensePlate = licensePlate;
+        this.mpg = mpg;
     }
 
     public Integer getId() {
@@ -122,6 +127,14 @@ public class DefaultCar implements Serializable {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
+    }
+
+    public int getMpg() {
+        return mpg;
+    }
+
+    public void setMpg(int mpg) {
+        this.mpg = mpg;
     }
 
     public User getUserId() {

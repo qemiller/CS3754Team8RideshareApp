@@ -10,6 +10,13 @@
 
         <p:dialog id="AllRidesViewDlg" widgetVar="AllRidesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAllRidesTitle}">
             <h:form id="AllRidesViewForm">
+                <iframe
+                    width="450"
+                    height="250"
+                    frameborder="0" style="border:0"
+                    src="#{allRidesController.mapUrl}" allowfullscreen>
+                </iframe>
+
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{allRidesController.selected != null}">
                         <h:outputText value="#{bundle.ViewAllRidesLabel_id}"/>

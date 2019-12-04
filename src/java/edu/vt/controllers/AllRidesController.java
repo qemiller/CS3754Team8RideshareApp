@@ -56,7 +56,7 @@ public class AllRidesController implements Serializable {
     private String carLicensePlate;
     private Date trip_date;
     private Integer number_of_passengers;
-    private boolean useDefaultCar;
+    private int useDefaultCar;
     
     private List<AllRides> searchedItems;
     private String searchCategory;
@@ -318,15 +318,47 @@ public class AllRidesController implements Serializable {
         this.searchString = searchString;
     }
 
-    public boolean isUseDefaultCar() {
+    public int getUseDefaultCar() {
         return useDefaultCar;
     }
 
-    public void setUseDefaultCar(boolean useDefaultCar) {
+    public void setUseDefaultCar(int useDefaultCar) {
         this.useDefaultCar = useDefaultCar;
     }
-
     
+    
+
+    public String getMapUrl(){
+        String start;
+        String end;
+        if(!selected.getStartingAddress2().isEmpty()){
+            start = selected.getStartingAddress1().replace(" ", "+") + "+" +
+                    selected.getStartingAddress2().replace(" ", "+") + "+" +
+                    selected.getStartingCity().replace(" ", "+") + "+" +
+                    selected.getStartingState();
+        }
+        else {
+            start = selected.getStartingAddress1().replace(" ", "+") + "+" +
+                    selected.getStartingCity().replace(" ", "+") + "+" +
+                    selected.getStartingState();
+        }
+        if(!selected.getEndingAddress2().isEmpty()){
+            end = selected.getEndingAddress1().replace(" ", "+") + "+" +
+                    selected.getEndingAddress2().replace(" ", "+") + "+" +
+                    selected.getEndingCity().replace(" ", "+") + "+" +
+                    selected.getEndingState();
+        }
+        else {
+            end = selected.getEndingAddress1().replace(" ", "+") + "+" +
+                    selected.getEndingCity().replace(" ", "+") + "+" +
+                    selected.getEndingState();
+        }
+        return "https://www.google.com/maps/embed/v1/directions" +
+                "?key=" + key +
+                "&units=imperial" +
+                "&origin=" + start +
+                "&destination=" + end;
+    }
     
     public AllRidesFacade getEjbFacade() {
         return ejbFacade;
