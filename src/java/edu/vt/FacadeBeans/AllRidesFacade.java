@@ -38,12 +38,12 @@ public class AllRidesFacade extends AbstractFacade<AllRides> {
      * @param start
      * @return a list of object references of publicVideos with the input parameter category
      */
-    public List<AllRides> findByStartingLocation(String start) {
+    public List<AllRides> findByStartingCity(String start) {
         // the % ____ % means that anything with a categroy containing the substring of categroy 
         //will be placed in the list of videos
         start = "%" + start + "%";
-        List<AllRides> rides = em.createNamedQuery("AllRides.findByStartingLocation")
-                .setParameter("startingLocation", start)
+        List<AllRides> rides = em.createNamedQuery("AllRides.findByStartingCity")
+                .setParameter("startingCity", start)
                 .getResultList();
 
         return rides;
@@ -54,12 +54,12 @@ public class AllRidesFacade extends AbstractFacade<AllRides> {
      * @param end
      * @return a list of object references of publicVideos with the input parameter category
      */
-    public List<AllRides> findByEndingLocation(String end) {
+    public List<AllRides> findByEndingCity(String end) {
         // the % ____ % means that anything with a categroy containing the substring of categroy 
         //will be placed in the list of videos
         end = "%" + end + "%";
-        List<AllRides> rides = em.createNamedQuery("AllRides.findByEndingLocation")
-                .setParameter("endingLocation", end)
+        List<AllRides> rides = em.createNamedQuery("AllRides.findByEndingCity")
+                .setParameter("endingCity", end)
                 .getResultList();
 
         return rides;

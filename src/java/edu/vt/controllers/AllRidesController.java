@@ -501,14 +501,14 @@ public class AllRidesController implements Serializable {
     public String search() {
         switch(searchCategory){
             case "all":
-                searchedItems = getFacade().findByStartingLocation(searchString);
-                searchedItems.addAll(getFacade().findByEndingLocation(searchString));
+                searchedItems = getFacade().findByStartingCity(searchString);
+                searchedItems.addAll(getFacade().findByEndingCity(searchString));
                 break;
             case "startingLocation":
-                searchedItems = getFacade().findByStartingLocation(searchString);
+                searchedItems = getFacade().findByStartingCity(searchString);
                 break;
             case "endingLocation":
-                searchedItems = getFacade().findByEndingLocation(searchString);
+                searchedItems = getFacade().findByEndingCity(searchString);
                 break;
         }
         return "/search/Results?faces-redirect=true";
