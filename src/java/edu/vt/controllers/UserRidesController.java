@@ -1,9 +1,13 @@
 package edu.vt.controllers;
 
+import edu.vt.EntityBeans.AllRides;
+import edu.vt.EntityBeans.User;
 import edu.vt.EntityBeans.UserRides;
+import edu.vt.FacadeBeans.AllRidesFacade;
 import edu.vt.controllers.util.JsfUtil;
 import edu.vt.controllers.util.JsfUtil.PersistAction;
 import edu.vt.FacadeBeans.UserRidesFacade;
+import edu.vt.globals.Methods;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,6 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 @Named("userRidesController")
 @SessionScoped
@@ -39,9 +44,13 @@ public class UserRidesController implements Serializable {
     private Integer number_of_passengers;
     @EJB
     private UserRidesFacade userRidesFacade;
+    @EJB 
+    private AllRidesFacade allRidesFacade;
     
     private List<UserRides> items = null;
     private UserRides selected;
+    @Inject
+    private AllRidesController allRidesController;
 
     public UserRidesController() {
     }
@@ -168,6 +177,23 @@ public class UserRidesController implements Serializable {
         this.number_of_passengers = number_of_passengers;
     }
 
+    public AllRidesFacade getAllRidesFacade() {
+        return allRidesFacade;
+    }
+
+    public void setAllRidesFacade(AllRidesFacade allRidesFacade) {
+        this.allRidesFacade = allRidesFacade;
+    }
+
+    public AllRidesController getAllRidesController() {
+        return allRidesController;
+    }
+
+    public void setAllRidesController(AllRidesController allRidesController) {
+        this.allRidesController = allRidesController;
+    }
+
+    
     
     public UserRides prepareCreate() {
         selected = new UserRides();
@@ -193,11 +219,79 @@ public class UserRidesController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public void edit(){
+        User user = (User)Methods.sessionMap().get("user");
+        if (selected.getDriverUsername().equals(user.getUsername())){
+            update();
+            AllRides allRide = getAllRidesFacade().find(selected.getAllRides_id());
+            allRide.setEndingLocation(selected.getEndingLocation());
+            allRide.setStartingLocation(selected.getStartingLocation());
+            allRide.setNumberOfPassangers(selected.getNumberOfPassangers());
+            allRide.setPassanger1Id(selected.getPassanger1Id());
+            allRide.setPassanger2Id(selected.getPassanger2Id());
+            allRide.setPassanger3Id(selected.getPassanger3Id());
+            allRide.setPassanger4Id(selected.getPassanger4Id());
+            allRide.setPassanger5Id(selected.getPassanger5Id());
+            allRide.setPassanger6Id(selected.getPassanger6Id());
+            allRide.setTripDate(selected.getTripDate());
+            allRide.setSeatsAvailable(selected.getSeatsAvailable());
+        }
+        else {
+            Methods.preserveMessages();
+            Methods.showMessage("Information", "Only the driver can edit a ride","");
+        }
+    }
+    
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UserRidesUpdated"));
     }
 
+    public void delete(){
+        Methods.preserveMessages();
+        // get corresponding allrides
+        AllRides allRide = getAllRidesFacade().find(selected.getAllRides_id());
+        // set it to selected so that selected is changed
+        allRidesController.setSelected(allRide);
+        // get the logged in users username
+        User user = (User)Methods.sessionMap().get("user");
+        // if the user is the driver then destroy the ride in both databases and 
+        // send a message to the riders
+        if (selected.getDriverUsername().equals(user.getUsername())){
+            allRidesController.destroy();
+            destroy();
+            // send message
+        }
+        // if the user is a passenger, set the passengerId of the allRides to -1
+        // indicating that there is no passenger in that id then increment the seats available
+        // and decrement the number of passengers
+        else{
+            if(allRide.getPassanger1Id() == user.getId()){
+                allRide.setPassanger1Id(-1);
+            }
+            else if(allRide.getPassanger2Id() == user.getId()){
+                allRide.setPassanger2Id(-1);
+            }
+            else if(allRide.getPassanger3Id() == user.getId()){
+                allRide.setPassanger3Id(-1);
+            }
+            else if(allRide.getPassanger4Id() == user.getId()){
+                allRide.setPassanger4Id(-1);
+            }
+            else if(allRide.getPassanger5Id() == user.getId()){
+                allRide.setPassanger5Id(-1);
+            }
+            else if(allRide.getPassanger6Id() == user.getId()){
+                allRide.setPassanger6Id(-1);
+            }
+            else {
+                Methods.showMessage("Error", "Deletion Unsuccessful", "");
+                allRide.setNumberOfPassangers(allRide.getNumberOfPassangers() + 1);
+                allRide.setSeatsAvailable(allRide.getNumberOfPassangers() - 1);
+            }
+            allRide.setNumberOfPassangers(allRide.getNumberOfPassangers() - 1);
+            allRide.setSeatsAvailable(allRide.getSeatsAvailable() + 1);
+        }
+    }
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UserRidesDeleted"));
         if (!JsfUtil.isValidationFailed()) {
