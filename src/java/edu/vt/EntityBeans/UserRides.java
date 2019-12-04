@@ -200,8 +200,8 @@ public class UserRides implements Serializable {
     public UserRides(Integer id, Integer allRidesId, String driverUsername, 
             int passanger1Id, int passanger2Id, int passanger3Id, int passanger4Id, 
             int passanger5Id, int passanger6Id, int seatsAvailable, 
-            String startingAddress1, String startingCity, String startingState,
-            String startingZipcode, String endingAddress1, String endingCity,
+            String startingAddress1, String startingAddress2, String startingCity, String startingState,
+            String startingZipcode, String endingAddress1, String endingAddress2, String endingCity,
             String endingState, String endingZipcode, int trip_time, int trip_distance,
             int trip_cost, String carMake, String carModel, String carColor, int carMpg,
             String carLicensePlate, Date tripDate, int numberOfPassangers) {
@@ -216,10 +216,12 @@ public class UserRides implements Serializable {
         this.passanger6Id = passanger6Id;
         this.seatsAvailable = seatsAvailable;
         this.startingAddress1 = startingAddress1;
+        this.startingAddress2 = startingAddress2;
         this.startingCity = startingCity;
         this.startingState = startingState;
         this.startingZipcode = startingZipcode;
         this.endingAddress1 = endingAddress1;
+        this.endingAddress2 = endingAddress2;
         this.endingCity = endingCity;
         this.endingState = endingState;
         this.endingZipcode = endingZipcode;
@@ -522,6 +524,7 @@ public class UserRides implements Serializable {
     public void setUserId(User userId) {
         this.userId = userId;
     }
+    
 
     @Override
     public int hashCode() {
