@@ -331,7 +331,7 @@ public class AllRidesController implements Serializable {
     public String getMapUrl(){
         String start;
         String end;
-        if(!selected.getStartingAddress2().isEmpty()){
+        if(selected.getStartingAddress2() != null){
             start = selected.getStartingAddress1().replace(" ", "+") + "+" +
                     selected.getStartingAddress2().replace(" ", "+") + "+" +
                     selected.getStartingCity().replace(" ", "+") + "+" +
@@ -342,7 +342,7 @@ public class AllRidesController implements Serializable {
                     selected.getStartingCity().replace(" ", "+") + "+" +
                     selected.getStartingState();
         }
-        if(!selected.getEndingAddress2().isEmpty()){
+        if(selected.getEndingAddress2() != null){
             end = selected.getEndingAddress1().replace(" ", "+") + "+" +
                     selected.getEndingAddress2().replace(" ", "+") + "+" +
                     selected.getEndingCity().replace(" ", "+") + "+" +

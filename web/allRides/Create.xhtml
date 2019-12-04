@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:composition>
+    <ui:composition template="/template/siteTemplate.xhtml">
 
         <p:dialog id="AllRidesCreateDlg" widgetVar="AllRidesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}">
             <div align="center">
@@ -51,6 +51,9 @@
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_endingZipcode}" for="endingZipcode" />
                             <p:inputText id="endingZipcode" value="#{allRidesController.selected.endingZipcode}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_endingZipcode}"/>
 
+                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_trip_cost}" for="trip_cost" />
+                            <p:inputText id="trip_cost" value="#{allRidesController.selected.trip_cost}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_trip_cost}"/>
+                            
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_tripDate}" for="tripDate" />
                             <p:calendar id="tripDate" pattern="MM/dd/yyyy" value="#{allRidesController.selected.tripDate}" title="#{bundle.EditAllRidesTitle_tripDate}" required="true" requiredMessage="#{bundle.EditAllRidesRequiredMessage_tripDate}" showOn="button"/>
                             <p:outputLabel value="#{bundle.CreateAllRidesLabel_numberOfPassangers}" for="numberOfPassangers" />
@@ -64,7 +67,9 @@
                             </h:selectOneRadio>
 
                         </p:panelGrid>
-                        <p:commandButton actionListener="#{allRidesController.create}" value="#{bundle.Save}" update="display,:AllRidesListForm:datalist,:growl" oncomplete="handleSubmit(args,'AllRidesCreateDialog');"/>
+                        <p:commandButton actionListener="#{allRidesController.create}" value="#{bundle.Save}" 
+                                         update="display,:AllRidesListForm:datalist,:growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
+                                         oncomplete="handleSubmit(args,'AllRidesCreateDialog');"/>
                         <p:commandButton value="#{bundle.Cancel}" onclick="AllRidesCreateDialog.hide()"/>
                     </h:panelGroup>
                 </h:form>

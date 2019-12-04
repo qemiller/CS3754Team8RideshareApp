@@ -8,13 +8,14 @@
 
     <ui:composition>
 
-        <p:dialog id="AllRidesViewDlg" widgetVar="AllRidesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAllRidesTitle}">
-            <h:form id="AllRidesViewForm">
+        <p:dialog id="AllRidesViewDlg" widgetVar="AllRidesViewDialog" modal="true" resizable="false" 
+                  appendTo="@(body)" header="#{bundle.ViewAllRidesTitle}" rendered="#{allRidesController.selected != null}">
+            <h:form id="AllRidesViewForm" rendered="#{allRidesController.selected != null}" >
                 <iframe
                     width="450"
                     height="250"
                     frameborder="0" style="border:0"
-                    src="#{allRidesController.mapUrl}" allowfullscreen>
+                    src="#{allRidesController.mapUrl}" allowfullscreen="true">
                 </iframe>
 
                 <h:panelGroup id="display">
