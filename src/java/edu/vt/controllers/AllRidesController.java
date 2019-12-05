@@ -75,6 +75,8 @@ public class AllRidesController implements Serializable {
     private UserController user;
     @Inject 
     private UserRidesController userRidesController;
+    @Inject
+    private UserRides newRide;
 
     public AllRidesController() {
     }
@@ -390,20 +392,22 @@ public class AllRidesController implements Serializable {
 
     public void share(){
         Methods.preserveMessages();
-        if (user.isLoggedIn()){
+        if (user.isLoggedIn() && selected != null){
             //System.out.println("share");
-            UserRides newRide = new UserRides();
-            userRidesController.setSelected(userRidesController.prepareCreate(selected.getId(),
-                    selected.getDriverId().getUsername(),
-                    selected.getPassanger1Id(),selected.getPassanger2Id(),selected.getPassanger3Id(), 
-                    selected.getPassanger4Id(), selected.getPassanger5Id(), selected.getPassanger6Id(), 
-                    selected.getSeatsAvailable(),
-                    selected.getStartingAddress1(), selected.getStartingCity(), selected.getStartingState(),
-            selected.getStartingZipcode(), selected.getEndingAddress1(), selected.getEndingCity(),
-            selected.getEndingState(), selected.getEndingZipcode(), selected.getTrip_time(), selected.getTrip_distance(),
-            selected.getTrip_cost(), selected.getCarMake(), selected.getCarModel(), selected.getCarColor(), selected.getCarMpg(),
-            selected.getCarLicensePlate(), selected.getTripDate(),
-                    selected.getNumberOfPassangers()));
+            String username = "";
+            if(selected.getDriverId() != null){
+                username = selected.getDriverId().getUsername();
+            }
+            newRide.setAll(selected.getId(), username, selected.getPassanger1Id(), selected.getPassanger2Id(),
+                            selected.getPassanger3Id(), selected.getPassanger4Id(), selected.getPassanger5Id(), selected.getPassanger6Id(), 
+                            selected.getSeatsAvailable(), selected.getStartingAddress1(), selected.getStartingCity(),
+                            selected.getStartingState(), selected.getStartingZipcode(), selected.getEndingAddress1(), 
+                            selected.getEndingCity(), selected.getEndingState(), 
+                            selected.getEndingZipcode(),
+                            selected.getTrip_time(), 
+                            selected.getTrip_distance(), selected.getTrip_cost(), selected.getCarMake(), selected.getCarModel(), selected.getCarColor(),
+                            selected.getCarMpg(), selected.getCarLicensePlate(), selected.getTripDate(), selected.getNumberOfPassangers());
+            userRidesController.setSelected(newRide);
             userRidesController.create();
         }
         else{
@@ -559,10 +563,10 @@ public class AllRidesController implements Serializable {
 
     public void create() throws Exception {
         getTripInfo();
+        //share();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AllRidesCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
-            share();
         }
     }
 

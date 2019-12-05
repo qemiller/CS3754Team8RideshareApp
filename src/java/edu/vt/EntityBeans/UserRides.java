@@ -6,6 +6,8 @@ package edu.vt.EntityBeans;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,6 +52,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "UserRides.findByNumberOfPassangers", query = "SELECT u FROM UserRides u WHERE u.numberOfPassangers = :numberOfPassangers")
     , @NamedQuery(name = "UserRides.findByUserPrimaryKey", query = "SELECT u FROM UserRides u WHERE u.userId.id = :primaryKey")
 })
+
+@Named("userRides")
+@SessionScoped
 public class UserRides implements Serializable {
 
     private static final long serialVersionUID = 1L;
