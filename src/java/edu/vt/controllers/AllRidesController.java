@@ -1,6 +1,7 @@
 package edu.vt.controllers;
 
 import edu.vt.EntityBeans.AllRides;
+import edu.vt.EntityBeans.UserRides;
 import edu.vt.controllers.util.JsfUtil;
 import edu.vt.controllers.util.JsfUtil.PersistAction;
 import edu.vt.FacadeBeans.AllRidesFacade;
@@ -391,6 +392,7 @@ public class AllRidesController implements Serializable {
         Methods.preserveMessages();
         if (user.isLoggedIn()){
             //System.out.println("share");
+            UserRides newRide = new UserRides();
             userRidesController.setSelected(userRidesController.prepareCreate(selected.getId(),
                     selected.getDriverId().getUsername(),
                     selected.getPassanger1Id(),selected.getPassanger2Id(),selected.getPassanger3Id(), 
