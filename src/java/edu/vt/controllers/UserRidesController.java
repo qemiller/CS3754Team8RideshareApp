@@ -367,6 +367,39 @@ public class UserRidesController implements Serializable {
         
     }
     
+    public String getMapUrl(){
+        String start;
+        String end;
+        if(selected.getStartingAddress2() != null){
+            start = selected.getStartingAddress1().replace(" ", "+") + "+" +
+                    selected.getStartingAddress2().replace(" ", "+") + "+" +
+                    selected.getStartingCity().replace(" ", "+") + "+" +
+                    selected.getStartingState();
+        }
+        else {
+            start = selected.getStartingAddress1().replace(" ", "+") + "+" +
+                    selected.getStartingCity().replace(" ", "+") + "+" +
+                    selected.getStartingState();
+        }
+        if(selected.getEndingAddress2() != null){
+            end = selected.getEndingAddress1().replace(" ", "+") + "+" +
+                    selected.getEndingAddress2().replace(" ", "+") + "+" +
+                    selected.getEndingCity().replace(" ", "+") + "+" +
+                    selected.getEndingState();
+        }
+        else {
+            end = selected.getEndingAddress1().replace(" ", "+") + "+" +
+                    selected.getEndingCity().replace(" ", "+") + "+" +
+                    selected.getEndingState();
+        }
+        return "https://www.google.com/maps/embed/v1/directions" +
+                "?key=" + key +
+                "&origin=" + start +
+                "&destination=" + end +
+                "&units=imperial" +
+                "&mode=driving";
+    }
+    
         /**
      * Return the content of a given URL as String
      *

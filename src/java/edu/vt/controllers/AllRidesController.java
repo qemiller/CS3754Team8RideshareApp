@@ -356,9 +356,10 @@ public class AllRidesController implements Serializable {
         }
         return "https://www.google.com/maps/embed/v1/directions" +
                 "?key=" + key +
-                "&units=imperial" +
                 "&origin=" + start +
-                "&destination=" + end;
+                "&destination=" + end +
+                "&units=imperial" +
+                "&mode=driving";
     }
     
     public AllRidesFacade getEjbFacade() {

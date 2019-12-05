@@ -8,42 +8,53 @@
 
     <ui:composition>
 
-        <p:dialog id="UserRidesViewDlg" widgetVar="UserRidesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUserRidesTitle}">
-            <h:form id="UserRidesViewForm">
+        <p:dialog id="MyRidesViewDlg" widgetVar="MyRidesViewDialog" modal="true" resizable="false" 
+                  appendTo="@(body)" header="View Ride" rendered="#{userRidesController.selected != null}">
+            <h:form id="MyRidesViewForm" rendered="#{userRidesController.selected != null}" >
+                <iframe
+                    width="450"
+                    height="250"
+                    frameborder="0" style="border:0"
+                    src="#{userRidesController.getMapUrl()}" allowfullscreen="true">
+                </iframe>
+
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{userRidesController.selected != null}">
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_id}"/>
-                        <h:outputText value="#{userRidesController.selected.id}" title="#{bundle.ViewUserRidesTitle_id}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_driverUsername}"/>
-                        <h:outputText value="#{userRidesController.selected.driverUsername}" title="#{bundle.ViewUserRidesTitle_driverUsername}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger1Id}"/>
-                        <h:outputText value="#{userRidesController.selected.passanger1Id}" title="#{bundle.ViewUserRidesTitle_passanger1Id}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger2Id}"/>
-                        <h:outputText value="#{userRidesController.selected.passanger2Id}" title="#{bundle.ViewUserRidesTitle_passanger2Id}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger3Id}"/>
-                        <h:outputText value="#{userRidesController.selected.passanger3Id}" title="#{bundle.ViewUserRidesTitle_passanger3Id}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger4Id}"/>
-                        <h:outputText value="#{userRidesController.selected.passanger4Id}" title="#{bundle.ViewUserRidesTitle_passanger4Id}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger5Id}"/>
-                        <h:outputText value="#{userRidesController.selected.passanger5Id}" title="#{bundle.ViewUserRidesTitle_passanger5Id}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_passanger6Id}"/>
-                        <h:outputText value="#{userRidesController.selected.passanger6Id}" title="#{bundle.ViewUserRidesTitle_passanger6Id}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_seatsAvailable}"/>
-                        <h:outputText value="#{userRidesController.selected.seatsAvailable}" title="#{bundle.ViewUserRidesTitle_seatsAvailable}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_startingLocation}"/>
-                        <h:outputText value="#{userRidesController.selected.startingLocation}" title="#{bundle.ViewUserRidesTitle_startingLocation}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_endingLocation}"/>
-                        <h:outputText value="#{userRidesController.selected.endingLocation}" title="#{bundle.ViewUserRidesTitle_endingLocation}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_tripDate}"/>
-                        <h:outputText value="#{userRidesController.selected.tripDate}" title="#{bundle.ViewUserRidesTitle_tripDate}">
+                    <p:panelGrid columns="2" rendered="#{allRidesController.selected != null}">
+                        <h:outputText value="Seats Available"/>
+                        <h:outputText value="#{allRidesController.selected.seatsAvailable}" title="SeatsAvailable"/>
+                        
+                        <h:outputText value="Starting Address 1"/>
+                        <h:outputText value="#{allRidesController.selected.startingAddress1}" title="StartingAdress1" id="startAddress1"/>
+                        
+                        <h:outputText value="Starting Address 2"/>
+                        <h:outputText value="#{allRidesController.selected.startingAddress2}" title="StartingAdress2" id="startAddress2"/>
+                        
+                        <h:outputText value="Starting City"/>
+                        <h:outputText value="#{allRidesController.selected.startingCity}" title="StartingAdress" id="startCity"/>
+                        
+                        <h:outputText value="Starting State"/>
+                        <h:outputText value="#{allRidesController.selected.startingState}" title="StartingState" id="startState"/>
+                        
+                        <h:outputText value="Ending Address 1"/>
+                        <h:outputText value="#{allRidesController.selected.endingAddress1}" title="EndingAdress1" id="endAddress1"/>
+                        
+                        <h:outputText value="Ending Address 2"/>
+                        <h:outputText value="#{allRidesController.selected.endingAddress2}" title="EndingAdress2" id="endAddress2"/>
+                        
+                        <h:outputText value="Ending City"/>
+                        <h:outputText value="#{allRidesController.selected.endingCity}" title="EndingAdress" id="endCity"/>
+                        
+                        <h:outputText value="Ending State"/>
+                        <h:outputText value="#{allRidesController.selected.EndingState}" title="EndingState" id="endState"/>
+                        
+                        <h:outputText value="Trip Date"/>
+                        <h:outputText value="#{allRidesController.selected.tripDate}" title="TripDate">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_numberOfPassangers}"/>
-                        <h:outputText value="#{userRidesController.selected.numberOfPassangers}" title="#{bundle.ViewUserRidesTitle_numberOfPassangers}"/>
-                        <h:outputText value="#{bundle.ViewUserRidesLabel_userId}"/>
-                        <h:outputText value="#{userRidesController.selected.userId}" title="#{bundle.ViewUserRidesTitle_userId}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_numberOfPassangers}"/>
+                        <h:outputText value="#{allRidesController.selected.numberOfPassangers}" title="#{bundle.ViewAllRidesTitle_numberOfPassangers}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="UserRidesViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="AllRidesViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
