@@ -10,79 +10,67 @@
     <ui:composition>
 
         <p:dialog id="AllRidesCreateDlg" widgetVar="AllRidesCreateDialog" modal="true" resizable="false" 
-                  appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}" style="overflow:scroll; max-height: 100%">
+                  appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}" >
             <div align="center">
                 <h:form id="AllRidesCreateForm" class="ui-datatable-data">
                     <h:panelGroup id="display">
                         <p:panelGrid columns="2" columnClasses="panelGridColumn1, panelGridColumn2" rendered="#{allRidesController.selected != null}">
-
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger1Id}" for="passanger1Id" />
-                            <p:inputText id="passanger1Id" value="#{allRidesController.selected.passanger1Id}" class="inputTextField" required="true" requiredMessage="#{bundle.CreateUserVideoRequiredMessage_title}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger2Id}" for="passanger2Id" />
-                            <p:inputText id="passanger2Id" value="#{allRidesController.selected.passanger2Id}" title="#{bundle.CreateAllRidesTitle_passanger2Id}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_passanger2Id}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger3Id}" for="passanger3Id" />
-                            <p:inputText id="passanger3Id" value="#{allRidesController.selected.passanger3Id}" title="#{bundle.CreateAllRidesTitle_passanger3Id}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_passanger3Id}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger4Id}" for="passanger4Id" />
-                            <p:inputText id="passanger4Id" value="#{allRidesController.selected.passanger4Id}" title="#{bundle.CreateAllRidesTitle_passanger4Id}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_passanger4Id}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger5Id}" for="passanger5Id" />
-                            <p:inputText id="passanger5Id" value="#{allRidesController.selected.passanger5Id}" title="#{bundle.CreateAllRidesTitle_passanger5Id}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_passanger5Id}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_passanger6Id}" for="passanger6Id" />
-                            <p:inputText id="passanger6Id" value="#{allRidesController.selected.passanger6Id}" title="#{bundle.CreateAllRidesTitle_passanger6Id}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_passanger6Id}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_seatsAvailable}" for="seatsAvailable" />
+                            <p:outputLabel value="Seats Available" for="seatsAvailable" />
                             <p:inputText id="seatsAvailable" value="#{allRidesController.selected.seatsAvailable}" title="#{bundle.CreateAllRidesTitle_seatsAvailable}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_seatsAvailable}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_startingAddress1}" for="startingAddress1" />
+                            <p:outputLabel value="Starting Address 1" for="startingAddress1" />
                             <p:inputText id="startingAddress1" value="#{allRidesController.selected.startingAddress1}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_startingAddress1}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_startingAddress2}" for="startingAddress2" />
+                            <p:outputLabel value="Starting Address 2" for="startingAddress2" />
                             <p:inputText id="startingAddress2" value="#{allRidesController.selected.startingAddress2}" />
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_startingCity}" for="startingCity" />
+                            <p:outputLabel value="Starting City" for="startingCity" />
                             <p:inputText id="startingCity" value="#{allRidesController.selected.startingCity}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_startingCity}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_startingState}" for="startingState" />
+                            <p:outputLabel value="Starting State" for="startingState" />
                             <p:inputText id="startingState" value="#{allRidesController.selected.startingState}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_startingState}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_startingZipcode}" for="startingZipcode" />
+                            <p:outputLabel value="Starting Zip Code" for="startingZipcode" />
                             <p:inputText id="startingZipcode" value="#{allRidesController.selected.startingZipcode}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_startingZipcode}"/>
 
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_endingAddress1}" for="endingAddress1" />
+                            <p:outputLabel value="Ending Address 1" for="endingAddress1" />
                             <p:inputText id="endingAddress1" value="#{allRidesController.selected.endingAddress1}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_endingAddress1}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_endingAddress2}" for="endingAddress2" />
+                            <p:outputLabel value="Ending Address 2" for="endingAddress2" />
                             <p:inputText id="endingAddress2" value="#{allRidesController.selected.endingAddress2}" />
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_endingCity}" for="endingCity" />
+                            <p:outputLabel value="Ending City" for="endingCity" />
                             <p:inputText id="endingCity" value="#{allRidesController.selected.endingCity}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_endingCity}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_endingState}" for="endingState" />
+                            <p:outputLabel value="Ending State" for="endingState" />
                             <p:inputText id="endingState" value="#{allRidesController.selected.endingState}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_endingState}"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_endingZipcode}" for="endingZipcode" />
+                            <p:outputLabel value="Ending Zipcode" for="endingZipcode" />
                             <p:inputText id="endingZipcode" value="#{allRidesController.selected.endingZipcode}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_endingZipcode}"/>
 
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_trip_cost}" for="trip_cost" />
+                            <p:outputLabel value="Trip Cost" for="trip_cost" />
                             <p:inputText id="trip_cost" value="#{allRidesController.selected.trip_cost}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_trip_cost}"/>
 
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_tripDate}" for="tripDate" />
+                            <p:outputLabel value="Trip Date" for="tripDate" />
                             <p:calendar id="tripDate" pattern="MM/dd/yyyy" value="#{allRidesController.selected.tripDate}" title="#{bundle.EditAllRidesTitle_tripDate}" required="true" requiredMessage="#{bundle.EditAllRidesRequiredMessage_tripDate}" showOn="button"/>
-                            <p:outputLabel value="#{bundle.CreateAllRidesLabel_numberOfPassangers}" for="numberOfPassangers" />
+                            <p:outputLabel value="Number of Passengers" for="numberOfPassangers" />
                             <p:inputText id="numberOfPassangers" value="#{allRidesController.selected.numberOfPassangers}" title="#{bundle.CreateAllRidesTitle_numberOfPassangers}" required="true" requiredMessage="#{bundle.CreateAllRidesRequiredMessage_numberOfPassangers}"/>
 
                             <p:outputLabel value="Register a Car?" for="carRegistration" />
-                            <h:selectOneRadio id="carRegistration" value="#{allRidesController.useDefaultCar}" onclick="CarRegistrationDialog.show()" 
+                            <p:selectOneRadio id="carRegistration" value="#{allRidesController.useDefaultCar}" onclick="CarRegistrationDialog.show()" 
                                               required="true" requiredMessage="A car must be registered">
-                                <f:selectItem itemLabel="Use Default Car" value="1" />
-                                <f:selectItem itemLabel="Use Another Car" value="0" />
-                            </h:selectOneRadio>
+                                <f:selectItem itemLabel="Use Default Car" itemValue="1" />
+                                <f:selectItem itemLabel="Use Another Car" itemValue="0" />
+                            </p:selectOneRadio>
 
                         </p:panelGrid>
                     </h:panelGroup>
                     <h:panelGroup>
                         <br />
                         <div align="center">
-                            <p:commandButton actionListener="#{allRidesController.create}" value="#{bundle.Save}" 
+                            <p:commandButton actionListener="#{allRidesController.create}" value="Save" 
+                                             icon="fas fa-save" ajax="false"
                                              update="display,:AllRidesListForm:datalist,:growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
                                              oncomplete="handleSubmit(args,'AllRidesCreateDialog');"/>
-                            <p:commandButton value="#{bundle.Cancel}" onclick="AllRidesCreateDialog.hide()"/>
+                            <p:commandButton value="Cancel" onclick="AllRidesCreateDialog.hide()"/>
                         </div>
                     </h:panelGroup>
                 </h:form>
             </div>
         </p:dialog>
 
-        <p:dialog id="CarRegistrationDlg" widgetVar="CarRegistrationDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}">
+<!--        <p:dialog id="CarRegistrationDlg" widgetVar="CarRegistrationDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAllRidesTitle}">
             <div align="center">
                 <h:form id="CarRegistrationForm" class="ui-datatable-data">
                     <h:panelGroup id="display2">
@@ -129,7 +117,7 @@
                     </h:panelGroup>
                 </h:form>>
             </div>
-        </p:dialog>
+        </p:dialog>-->
 
     </ui:composition>
 </html>

@@ -20,6 +20,7 @@
 
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{allRidesController.selected != null}">
+<<<<<<< HEAD
                         <h:outputText value="Seats Available"/>
                         <h:outputText value="#{allRidesController.selected.seatsAvailable}" title="SeatsAvailable"/>
                         
@@ -49,6 +50,30 @@
                         
                         <h:outputText value="Trip Date"/>
                         <h:outputText value="#{allRidesController.selected.tripDate}" title="TripDate">
+=======
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_id}"/>
+                        <h:outputText value="#{allRidesController.selected.id}" title="#{bundle.ViewAllRidesTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger1Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger1Id}" title="#{bundle.ViewAllRidesTitle_passanger1Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger2Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger2Id}" title="#{bundle.ViewAllRidesTitle_passanger2Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger3Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger3Id}" title="#{bundle.ViewAllRidesTitle_passanger3Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger4Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger4Id}" title="#{bundle.ViewAllRidesTitle_passanger4Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger5Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger5Id}" title="#{bundle.ViewAllRidesTitle_passanger5Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_passanger6Id}"/>
+                        <h:outputText value="#{allRidesController.selected.passanger6Id}" title="#{bundle.ViewAllRidesTitle_passanger6Id}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_seatsAvailable}"/>
+                        <h:outputText value="#{allRidesController.selected.seatsAvailable}" title="#{bundle.ViewAllRidesTitle_seatsAvailable}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_startingLocation}"/>
+                        <h:outputText value="#{allRidesController.selected.startingAddress1}" title="#{bundle.ViewAllRidesTitle_startingLocation}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_endingLocation}"/>
+                        <h:outputText value="#{allRidesController.selected.endingAddress1}" title="#{bundle.ViewAllRidesTitle_endingLocation}"/>
+                        <h:outputText value="#{bundle.ViewAllRidesLabel_tripDate}"/>
+                        <h:outputText value="#{allRidesController.selected.tripDate}" title="#{bundle.ViewAllRidesTitle_tripDate}">
+>>>>>>> 097435c0b5ead2b14a52b448b97617cf353542ad
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAllRidesLabel_numberOfPassangers}"/>

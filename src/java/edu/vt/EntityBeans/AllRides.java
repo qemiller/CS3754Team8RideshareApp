@@ -58,32 +58,26 @@ public class AllRides implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "passanger_1_id")
     private int passanger1Id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "passanger_2_id")
     private int passanger2Id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "passanger_3_id")
     private int passanger3Id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "passanger_4_id")
     private int passanger4Id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "passanger_5_id")
     private int passanger5Id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "passanger_6_id")
     private int passanger6Id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "seats_available")
+    @NotNull
     private int seatsAvailable;
     @Basic(optional = false)
     @NotNull
@@ -132,11 +126,9 @@ public class AllRides implements Serializable {
     @Column(name = "endingZipcode")
     private String endingZipcode;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "trip_time")
     private int trip_time;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "trip_distance")
     private int trip_distance;
     @Basic(optional = false)
@@ -158,22 +150,22 @@ public class AllRides implements Serializable {
     @Column(name = "carMake")
     private String carMake;
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Size(min = 1, max = 128)
     @Column(name = "carModel")
     private String carModel;
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Size(min = 1, max = 128)
     @Column(name = "carColor")
     private String carColor;
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Size(min = 1, max = 32)
     @Column(name = "carLicensePlate")
     private String carLicensePlate;
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Column(name = "carMpg")
     private int carMpg;
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
